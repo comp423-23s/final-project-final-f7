@@ -10,6 +10,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Profile, ProfileService } from '../profile/profile.service';
 import { PermissionService } from '../permission.service';
+import { WorkshopService } from '../workshop/workshop.service';
 
 @Component({
   selector: 'app-navigation',
@@ -30,6 +31,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(
     public auth: AuthenticationService,
     public router: Router,
+    private workshopService: WorkshopService,
     private permission: PermissionService,
     private profileService: ProfileService,
     private breakpointObserver: BreakpointObserver,
