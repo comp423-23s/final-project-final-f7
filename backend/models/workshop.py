@@ -8,6 +8,7 @@ class Workshop(BaseModel):
     id: int | None = None
     title: str = ""
     description: str = ""
+    location: str = ""
     time: str = ""
     requirements: str = ""
     spots: int
