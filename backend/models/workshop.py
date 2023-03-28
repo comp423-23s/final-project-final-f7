@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from user import User
 
 
+
 class Workshop(BaseModel):
     id: int | None = None
     title: str = ""
