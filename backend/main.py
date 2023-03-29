@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from .api import health, static_files, profile, authentication, user
 from .api.admin import users as admin_users
 from .api.admin import roles as admin_roles
+from database import workshop
+import database
 
 __authors__ = ["Kris Jordan"]
 __copyright__ = "Copyright 2023"
@@ -27,3 +29,7 @@ app.include_router(authentication.api)
 app.include_router(admin_users.api)
 app.include_router(admin_roles.api)
 app.mount("/", static_files.StaticFileMiddleware(directory="./static"))
+
+@app.get("/api/workshops")
+def get_list_workshops() -> list[workshop]:
+    return database.get_list_workshops()

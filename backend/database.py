@@ -22,6 +22,11 @@ def _engine_str(database=getenv("POSTGRES_DATABASE")) -> str:
 engine = sqlalchemy.create_engine(_engine_str(), echo=True)
 """Application-level SQLAlchemy database engine."""
 
+class workshop():
+    id: int
+    title: str
+
+workshops: list[workshop] = []
 
 def db_session():
     """Generator function offering dependency injection of SQLAlchemy Sessions."""
@@ -30,3 +35,18 @@ def db_session():
         yield session
     finally:
         session.close()
+
+def create_workshop(workshop_: workshop) -> workshop:
+    if(workshop_.title == sqlalchemy.null):
+        raise Exception(f"Invalid Title Name {workshop_.title}")
+    if(workshop_.id != type(int)):
+        raise Exception(f"Invalid ID {id}")
+    if (workshop_.id == id):
+        raise Exception(f"Workshop already registered!")
+    workshops.append(workshop_)
+    return workshop_
+
+
+def get_list_workshops() -> list[workshop]:
+    return workshops
+
