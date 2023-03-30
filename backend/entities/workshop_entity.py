@@ -21,6 +21,8 @@ class WorkshopEntity(EntityBase):
     requirements: Mapped[str] = mapped_column(String)
     spots: Mapped[str] = mapped_column(String)
 
+    #the parameter cls is of Type[Self@WorkshopEntity]. So we want to return the mapped all of the fields mapped to the original model
+    #this is providing the the table the information that is necessary 
     @classmethod
     def from_model(cls, model: Workshop) -> Self:
         return cls(
