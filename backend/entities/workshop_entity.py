@@ -19,7 +19,7 @@ class WorkshopEntity(EntityBase):
     location: Mapped[str] = mapped_column(String)
     time: Mapped[str] = mapped_column(String)
     requirements: Mapped[str] = mapped_column(String)
-    spots: Mapped[str] = mapped_column(String)
+    spots: Mapped[int] = mapped_column(Integer)
 
     #the parameter cls is of Type[Self@WorkshopEntity]. So we want to return the mapped all of the fields mapped to the original model
     #this is providing the the table the information that is necessary 
