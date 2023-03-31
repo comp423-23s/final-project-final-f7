@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class Workshop(BaseModel):
-    id: int | None = None
+    id: int
     title: str
     description: str
     location: str
