@@ -3,7 +3,7 @@ from sqlalchemy import select, or_, func
 from sqlalchemy.orm import Session
 from ..database import db_session
 from ..models import User, Paginated, PaginationParams, Workshop
-from ..entities import UserEntity, WorkshopEntity
+from ..entities import WorkshopEntity
 
 
 __authors__ = ['Kris Jordan']
