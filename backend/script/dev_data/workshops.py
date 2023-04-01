@@ -1,4 +1,4 @@
-# Creates default Workshops in the database
+"""Creates default Workshops in the database"""
 
 from ...models import User, Workshop
 
