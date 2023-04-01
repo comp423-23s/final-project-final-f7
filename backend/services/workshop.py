@@ -37,3 +37,8 @@ class WorkshopService:
         self._session.add(workshop)
         self._session.commit()
         return workshop.to_model()
+
+    def get_all(self) -> list[Workshop]:
+        query = select(WorkshopEntity)
+        entities = self._session.scalars(query).all()
+        return [entity.to_model() for entity in entities]

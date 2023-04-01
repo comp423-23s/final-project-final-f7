@@ -1,9 +1,7 @@
 """Data model representing a workshop."""
 
 from pydantic import BaseModel
-# from user import User
-
-
+from user import User
 
 class Workshop(BaseModel):
     id: int
@@ -13,5 +11,5 @@ class Workshop(BaseModel):
     time: str
     requirements: str
     spots: int
-    #hosts: list[User] = []
-    #attendees: list[User] = []
+    hosts: list[User] = []
+    attendees: list[User] = []
