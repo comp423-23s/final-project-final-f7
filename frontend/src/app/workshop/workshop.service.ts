@@ -1,3 +1,5 @@
+/* Service for handling workshop functionality on the frontend. */
+
 import { Injectable } from '@angular/core';
 import { Profile } from '../profile/profile.service';
 import { HttpClient } from '@angular/common/http';
@@ -25,6 +27,6 @@ export class WorkshopService {
   constructor(private httpClient: HttpClient) { }
 
   getWorkshops(): Observable<Workshop[]> {
-    return this.httpClient.get<Workshop[]>("/api/workshop");
+    return this.httpClient.get<Workshop[]>("/api/workshop");  // Calls underlying method from the workshop API.
   }
 }
