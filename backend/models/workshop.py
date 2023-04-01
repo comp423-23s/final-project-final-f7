@@ -1,4 +1,4 @@
-"""Data model representing a workshop."""
+"""Data model representing a workshop. Used across all application layers."""
 
 from pydantic import BaseModel
 from .user import User

@@ -1,3 +1,5 @@
+/* Component running behind the scenes of the webpage. */
+
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Workshop, WorkshopService } from './workshop.service';
@@ -9,7 +11,7 @@ import { Workshop, WorkshopService } from './workshop.service';
 })
 export class WorkshopComponent {
 
-  public workshops$: Observable<Workshop[]>
+  public workshops$: Observable<Workshop[]>  // Holds all workshops obtained from the database.
 
   public static Route = {
     path: 'workshops',

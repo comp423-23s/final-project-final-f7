@@ -1,5 +1,7 @@
+"""Entity representing a workshop -- how each workshop object is represented in the application."""
+
+
 from typing import Self
-from pydantic import BaseModel
 from ..models import Workshop
 from .entity_base import EntityBase
 from sqlalchemy.orm import Mapped, mapped_column
