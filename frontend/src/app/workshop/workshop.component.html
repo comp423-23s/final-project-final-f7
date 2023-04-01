@@ -1,5 +1,27 @@
-<mat-card class="content">
-    <mat-card-content>    
-        <mat-card-subtitle>workshop works</mat-card-subtitle>
+<mat-card class="content" *ngFor="let workshop of workshops$ | async">
+
+    <mat-card-header>
+        <mat-card-title>{{ workshop.title }}</mat-card-title>
+        <mat-card-subtitle>Hosted by {{ workshop.host_first_name }} {{ workshop.host_last_name }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p>{{ workshop.description }}</p>
+        <hr>
+        <p>{{ workshop.host_description }}</p>
+        <hr>
+        <mat-card-subtitle>Location: {{ workshop.location }}</mat-card-subtitle>
+        <mat-card-subtitle>Date and time: {{ workshop.time }}</mat-card-subtitle>
+        <mat-card-subtitle>Prerequisites: {{ workshop.requirements }}</mat-card-subtitle>
+        <mat-card-subtitle>Spots: {{ workshop.spots }}</mat-card-subtitle>
     </mat-card-content>
+
+    <mat-card-actions>
+        <mat-form-field appearance="fill">
+            <mat-label>PID</mat-label>
+            <input matInput placeholder="123456789">
+        </mat-form-field>
+        <button mat-button>REGISTER</button>
+    </mat-card-actions>
+
 </mat-card>

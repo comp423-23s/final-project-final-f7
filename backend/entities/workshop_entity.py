@@ -16,6 +16,9 @@ class WorkshopEntity(EntityBase):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String)
     description: Mapped[str] = mapped_column(String)
+    host_first_name: Mapped[str] = mapped_column(String)
+    host_last_name: Mapped[str] = mapped_column(String)
+    host_description: Mapped[str] = mapped_column(String)
     location: Mapped[str] = mapped_column(String)
     time: Mapped[str] = mapped_column(String)
     requirements: Mapped[str] = mapped_column(String)
@@ -29,6 +32,9 @@ class WorkshopEntity(EntityBase):
             id=model.id,
             title=model.title,
             description=model.description,
+            host_first_name=model.host_first_name,
+            host_last_name=model.host_last_name,
+            host_description=model.host_description,
             location=model.location,
             time=model.time,
             requirements=model.requirements,
@@ -40,6 +46,9 @@ class WorkshopEntity(EntityBase):
             id=self.id,
             title=self.title,
             description=self.description,
+            host_first_name=self.host_first_name,
+            host_last_name=self.host_last_name,
+            host_description=self.host_description,
             location=self.location,
             time=self.time,
             requirements=self.requirements,
