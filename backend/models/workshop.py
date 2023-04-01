@@ -1,7 +1,7 @@
 """Data model representing a workshop."""
 
 from pydantic import BaseModel
-from user import User
+from .user import User
 
 class Workshop(BaseModel):
     id: int
