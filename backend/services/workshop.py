@@ -1,8 +1,11 @@
+"""The workshop service provides access to the workshop model and database operations involving it."""
+
+
 from fastapi import Depends
-from sqlalchemy import select, or_, func
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..database import db_session
-from ..models import User, Paginated, PaginationParams, Workshop
+from ..models import Workshop
 from ..entities import WorkshopEntity
 
 
@@ -20,11 +23,16 @@ class WorkshopService:
 
 
     def get(self, title: str) -> Workshop | None:
-        """Get a Workshop by Title.
+        """Get a Workshop by its title.
+
         Args:
-            pid: The PID of the user.
+            title: The title of the workshop.
+
         Returns:
-            Workshop | None: The user or None if not found.
+            Workshop | None: The workshop or None if not found.
+
+        This function is not being explicitly used anywhere right now;
+        it was written for potential future use.
         """
         return self._session.execute(select(WorkshopEntity).filter_by(title = title)).scalar_one().to_model()
         # query = select(WorkshopEntity).where(WorkshopEntity.title == title)
