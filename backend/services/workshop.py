@@ -41,12 +41,34 @@ class WorkshopService:
         # return model
 
     def create(self, subject: Workshop) -> Workshop:
+        """Create a workshop and add it to the database.
+        
+        Args:
+            subject: The workshop to add.
+            
+        Returns:
+            Workshop: The workshop that was added (in model form).
+            
+        This function is not being explicitly used anywhere right now;
+        it was written for potential future use.
+        It was used to add workshops from the /docs page, but now
+        we have workshops added from the script."""
         workshop = WorkshopEntity.from_model(subject)
         self._session.add(workshop)
         self._session.commit()
         return workshop.to_model()
 
     def get_all(self) -> list[Workshop]:
+        """Return a list of all workshops in the database.
+        
+        Args:
+            None
+            
+        Returns:
+            list[Workshop]: The list of all workshops currently in the database.
+            
+        This function is being used by the frontend to display everything."""
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
+        
