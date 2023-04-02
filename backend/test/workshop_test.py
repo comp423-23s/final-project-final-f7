@@ -36,3 +36,4 @@ def test_get_all_description(workshop: WorkshopService):
     workshop_all = workshop.get_all() 
     assert workshop_all[0].description == "Make apps"
     assert workshop_all[1].description == "Make games"
+    
