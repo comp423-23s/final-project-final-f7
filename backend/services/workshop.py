@@ -71,3 +71,4 @@ class WorkshopService:
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
+        
