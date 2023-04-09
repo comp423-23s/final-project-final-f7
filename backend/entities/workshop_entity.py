@@ -2,10 +2,12 @@
 
 
 from typing import Self
+
 from ..models import Workshop
 from .entity_base import EntityBase
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import Integer, String
+from ..entities import UserEntity
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey, Integer, String
 
 
 __authors__ = ["Kris Jordan"]
@@ -25,6 +27,9 @@ class WorkshopEntity(EntityBase):
     time: Mapped[str] = mapped_column(String)
     requirements: Mapped[str] = mapped_column(String)
     spots: Mapped[int] = mapped_column(Integer)
+
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=True)
+    attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
 
     #the parameter cls is of Type[Self@WorkshopEntity]. So we want to return the mapped all of the fields mapped to the original model
     #this is providing the the table the information that is necessary 

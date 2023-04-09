@@ -30,11 +30,7 @@ export class WorkshopService {
     return this.httpClient.get<Workshop[]>("/api/workshop");  // Calls underlying method from the workshop API.
   }
 
-  registerUser(first_name: string, last_name: string, email: string, pronouns: string, workshop: Workshop): Profile | null {
-    let profile: Profile = {first_name, last_name, email, pronouns};
-    if (workshop.spots <= 0) {
-      return null;
-    }
+  registerUser(profile: Profile, workshop: Workshop): Profile | null {
     for (let attendee of workshop.attendees) {
       if (attendee === profile) {
         return null;
@@ -42,6 +38,7 @@ export class WorkshopService {
     }
     workshop.attendees.push(profile);
     workshop.spots--;
+    this.httpClient.put<Workshop>("/api/workshop", [profile, workshop]);
     return profile;
   }
 }
