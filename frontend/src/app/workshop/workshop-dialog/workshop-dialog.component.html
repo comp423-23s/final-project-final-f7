@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Register for {{ workshopDialogData.workshop.title }}</h1>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Jane" formControlName="first_name" name="first_name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Doe" formControlName="last_name" name="last_name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>UNC Email</mat-label>
+            <input matInput type="email" placeholder="jane.doe@unc.edu" formControlName="email" name="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Pronouns</mat-label>
+            <input matInput placeholder="she / her / hers" formControlName="pronouns" name="pronouns" required>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button type="submit" cdkFocusInitial>Register</button>
+        <button mat-button (click)="onNoClick()">Back</button>
+    </div>
