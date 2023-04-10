@@ -74,8 +74,8 @@ class WorkshopService:
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
         
-    def update_workshop(self, workshop: Workshop) -> Workshop:
-        entity = self._session.get(WorkshopEntity, workshop.title)
-        entity.update(workshop)
-        self._session.commit()
-        return workshop
+    # def update_workshop(self, workshop: Workshop) -> Workshop:
+    #     entity = self._session.get(WorkshopEntity, workshop.title)
+    #     entity.update(workshop)
+    #     self._session.commit()
+    #     return workshop

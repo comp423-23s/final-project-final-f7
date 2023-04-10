@@ -28,8 +28,8 @@ class WorkshopEntity(EntityBase):
     requirements: Mapped[str] = mapped_column(String)
     spots: Mapped[int] = mapped_column(Integer)
 
-    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=True)
-    attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
+    # user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=True)
+    # attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
 
     #the parameter cls is of Type[Self@WorkshopEntity]. So we want to return the mapped all of the fields mapped to the original model
     #this is providing the the table the information that is necessary 

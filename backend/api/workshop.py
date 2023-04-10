@@ -37,10 +37,10 @@ def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
     return workshop_service.create(workshop)
 
 
-@api.put("", response_model=Workshop, tags=["Workshop"])
-def register_user(user: User, user_workshop: tuple[User, Workshop], workshop_service: WorkshopService = Depends()):
-    user, workshop = user_workshop
-    if not workshop.attendees.contains(user) and workshop.spots > 0:
-        workshop.attendees.append(user)
-        workshop.spots -= 1
-        return workshop_service.update_workshop(workshop)
+# @api.put("", response_model=Workshop, tags=["Workshop"])
+# def register_user(user: User, user_workshop: tuple[User, Workshop], workshop_service: WorkshopService = Depends()):
+#     user, workshop = user_workshop
+#     if not workshop.attendees.contains(user) and workshop.spots > 0:
+#         workshop.attendees.append(user)
+#         workshop.spots -= 1
+#         return workshop_service.update_workshop(workshop)
