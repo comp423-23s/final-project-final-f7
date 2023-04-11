@@ -19,11 +19,9 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <mat-form-field appearance="fill">
-            <mat-label>PID</mat-label>
-            <input matInput placeholder="123456789">
-        </mat-form-field>
-        <button mat-button>REGISTER</button>
+        <button mat-button [disabled]="((profile$ | async) === undefined)" [disabled]="workshop.spots <= 0" (click)="openDialog(workshop)">Register</button>
+        <mat-error *ngIf="(profile$ | async) === undefined">You must be signed in to register.</mat-error>
+        <mat-error *ngIf="workshop.spots <= 0">All spots have been filled.</mat-error>
     </mat-card-actions>
 
 </mat-card>

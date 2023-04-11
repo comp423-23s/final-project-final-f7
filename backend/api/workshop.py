@@ -5,6 +5,7 @@ retrieve one by title. It is also currently used to create a new one."""
 
 
 from fastapi import APIRouter, Depends
+from backend.models.user import User
 from backend.services.workshop import WorkshopService
 from ..models import Workshop
 # from .authentication import registered_user
@@ -20,7 +21,7 @@ def get_workshop(title : str, workshop_service: WorkshopService = Depends()):
     return workshop_service.get(title)
 
 
-@api.get("", response_model= list[Workshop], tags=["Workshop"])
+@api.get("", response_model=list[Workshop], tags=["Workshop"])
 def get_all(workshop_service: WorkshopService = Depends()):
     """Retrieve all workshops from the database.
     
@@ -28,9 +29,18 @@ def get_all(workshop_service: WorkshopService = Depends()):
     return workshop_service.get_all()
 
 
-@api.post("", response_model=Workshop, tags = ["Workshop"])
+@api.post("", response_model=Workshop, tags=["Workshop"])
 def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
     """Create a new workshop.
     
     Currently, only being done through the /docs page."""
     return workshop_service.create(workshop)
+
+
+# @api.put("", response_model=Workshop, tags=["Workshop"])
+# def register_user(user: User, user_workshop: tuple[User, Workshop], workshop_service: WorkshopService = Depends()):
+#     user, workshop = user_workshop
+#     if not workshop.attendees.contains(user) and workshop.spots > 0:
+#         workshop.attendees.append(user)
+#         workshop.spots -= 1
+#         return workshop_service.update_workshop(workshop)
