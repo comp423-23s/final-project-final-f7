@@ -35,6 +35,7 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkshopCreateComponent } from './workshop/workshop-create/workshop-create.component';
+import { WorkshopDialogComponent } from './workshop/workshop-dialog/workshop-dialog.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { WorkshopCreateComponent } from './workshop/workshop-create/workshop-cre
     ProfileEditorComponent,
     WorkshopComponent,
     WorkshopCreateComponent
+    WorkshopDialogComponent
   ],
   imports: [
     BrowserModule,

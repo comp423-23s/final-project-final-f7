@@ -4,6 +4,8 @@
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+
+from backend.models.user import User
 from ..database import db_session
 from ..models import Workshop
 from ..entities import WorkshopEntity
@@ -34,7 +36,7 @@ class WorkshopService:
         This function is not being explicitly used anywhere right now;
         it was written for potential future use.
         """
-        return self._session.execute(select(WorkshopEntity).filter_by(title = title)).scalar_one().to_model()
+        return self._session.execute(select(WorkshopEntity).filter_by(title==title)).scalar_one().to_model()
         # query = select(WorkshopEntity).where(WorkshopEntity.title == title)
         # workshop_entity: WorkshopEntity = self._session.scalar(query)
         # model = workshop_entity.to_model()
@@ -72,3 +74,8 @@ class WorkshopService:
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
         
+    # def update_workshop(self, workshop: Workshop) -> Workshop:
+    #     entity = self._session.get(WorkshopEntity, workshop.title)
+    #     entity.update(workshop)
+    #     self._session.commit()
+    #     return workshop

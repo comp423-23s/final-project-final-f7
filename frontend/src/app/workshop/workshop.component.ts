@@ -3,7 +3,13 @@
 import { Component } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs';
 import { Workshop, WorkshopService } from './workshop.service';
-import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { WorkshopDialogComponent } from './workshop-dialog/workshop-dialog.component';
+import { Profile, ProfileService } from '../profile/profile.service';
+
+export interface WorkshopDialogData {
+  workshop: Workshop
+}
 
 @Component({
   selector: 'app-workshop',
@@ -12,22 +18,23 @@ import { FormBuilder } from '@angular/forms';
 })
 export class WorkshopComponent {
 
-  form = this.formBuilder.group({
-    id: '',
-    title: '',
-    description: '',
-    host_first_name: '',
-    host_last_name: '',
-    host_description: '',
-    location: '',
-    time: '',
-    requirements: '',
-    spots: '',
-    attendees: '',
-  });
+  // form = this.formBuilder.group({
+  //   id: '',
+  //   title: '',
+  //   description: '',
+  //   host_first_name: '',
+  //   host_last_name: '',
+  //   host_description: '',
+  //   location: '',
+  //   time: '',
+  //   requirements: '',
+  //   spots: '',
+  //   attendees: '',
+  // });
 
 
   public workshops$: Observable<Workshop[]>  // Holds all workshops obtained from the database.
+  public profile$: Observable<Profile | undefined>
 
   public static Route = {
     path: 'workshops',
@@ -35,32 +42,19 @@ export class WorkshopComponent {
     title: 'Workshops',
   }
 
-  constructor(public workshopService: WorkshopService, private formBuilder: FormBuilder) {
+  constructor(protected workshopService: WorkshopService, protected profileService: ProfileService, public dialog: MatDialog) {
     this.workshops$ = workshopService.getWorkshops();
+    this.profile$ = profileService.profile$;
   }
 
-  onSubmit(): void {
-    let form = this.form.value;
-    let id = parseInt(form.id ?? "");
-    let title = form.title ?? "";
-    let description = form.description ?? "";
-    let host_first_name = form.host_first_name ?? "";
-    let host_last_name = form.host_last_name ?? "";
-    let host_description = form.host_description ?? "";
-    let location = form.location ?? "";
-    let time = form.time ?? "";
-    let requirements = form.requirements ?? "";
-    let spots = parseInt(form.spots ?? "");
-    let attendees = form.attendees ?? "";
+  openDialog(workshop: Workshop): void {
+    this.dialog.open(WorkshopDialogComponent, {
+      data: {workshop: workshop}
+    });
 
-    
-
-
-    // let new_workshop = new Observable<Workshop>;
-    // new_workshop.
-    // this.workshops$.pipe(new_workshop);
-    // this.workshopService.getWorkshops
-
-    // this.workshopService.createWorkshop(id, title, description, host_first_name, host_last_name, host_description, location, time, requirements, spots, attendees, Workshop)
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.workshops$ = this.workshopService.getWorkshops();
+    // });
   }
+
 }

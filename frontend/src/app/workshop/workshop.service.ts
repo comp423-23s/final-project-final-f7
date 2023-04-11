@@ -32,6 +32,17 @@ export class WorkshopService {
 
   createWorkshop(id: number, title: string, description: string, host_first_name: string, host_last_name: string, host_description: string, location: string, time: string, requirements: string, spots: number, attendees: Profile[], newWorkshop: Workshop){
     newWorkshop.id = id;
+  }
     
+  registerUser(profile: Profile, workshop: Workshop): Profile | null {
+    for (let attendee of workshop.attendees) {
+      if (attendee === profile) {
+        return null;
+      }
+    }
+    workshop.attendees.push(profile);
+    workshop.spots--;
+    this.httpClient.put<Workshop>("/api/workshop", [profile, workshop]);
+    return profile;
   }
 }
