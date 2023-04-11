@@ -29,4 +29,9 @@ export class WorkshopService {
   getWorkshops(): Observable<Workshop[]> {
     return this.httpClient.get<Workshop[]>("/api/workshop");  // Calls underlying method from the workshop API.
   }
+
+  createWorkshop(id: number, title: string, description: string, host_first_name: string, host_last_name: string, host_description: string, location: string, time: string, requirements: string, spots: number, attendees: Profile[], newWorkshop: Workshop){
+    newWorkshop.id = id;
+    
+  }
 }
