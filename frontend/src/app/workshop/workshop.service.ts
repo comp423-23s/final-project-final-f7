@@ -29,4 +29,16 @@ export class WorkshopService {
   getWorkshops(): Observable<Workshop[]> {
     return this.httpClient.get<Workshop[]>("/api/workshop");  // Calls underlying method from the workshop API.
   }
+
+  registerUser(profile: Profile, workshop: Workshop): Profile | null {
+    for (let attendee of workshop.attendees) {
+      if (attendee === profile) {
+        return null;
+      }
+    }
+    workshop.attendees.push(profile);
+    workshop.spots--;
+    this.httpClient.put<Workshop>("/api/workshop", [profile, workshop]);
+    return profile;
+  }
 }
