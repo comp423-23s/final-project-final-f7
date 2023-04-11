@@ -46,8 +46,8 @@ import { WorkshopDialogComponent } from './workshop/workshop-dialog/workshop-dia
     GateComponent,
     ProfileEditorComponent,
     WorkshopComponent,
-    WorkshopCreateComponent
-    WorkshopDialogComponent
+    WorkshopCreateComponent,
+    WorkshopDialogComponent,
   ],
   imports: [
     BrowserModule,

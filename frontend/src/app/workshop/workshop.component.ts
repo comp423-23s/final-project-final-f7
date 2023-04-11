@@ -6,6 +6,7 @@ import { Workshop, WorkshopService } from './workshop.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WorkshopDialogComponent } from './workshop-dialog/workshop-dialog.component';
 import { Profile, ProfileService } from '../profile/profile.service';
+import { WorkshopCreateComponent } from './workshop-create/workshop-create.component';
 
 export interface WorkshopDialogData {
   workshop: Workshop
@@ -17,21 +18,6 @@ export interface WorkshopDialogData {
   styleUrls: ['./workshop.component.css']
 })
 export class WorkshopComponent {
-
-  // form = this.formBuilder.group({
-  //   id: '',
-  //   title: '',
-  //   description: '',
-  //   host_first_name: '',
-  //   host_last_name: '',
-  //   host_description: '',
-  //   location: '',
-  //   time: '',
-  //   requirements: '',
-  //   spots: '',
-  //   attendees: '',
-  // });
-
 
   public workshops$: Observable<Workshop[]>  // Holds all workshops obtained from the database.
   public profile$: Observable<Profile | undefined>
@@ -47,14 +33,16 @@ export class WorkshopComponent {
     this.profile$ = profileService.profile$;
   }
 
-  openDialog(workshop: Workshop): void {
+  openRegisterDialog(workshop: Workshop): void {
     this.dialog.open(WorkshopDialogComponent, {
       data: {workshop: workshop}
     });
-
     // dialogRef.afterClosed().subscribe(() => {
     //   this.workshops$ = this.workshopService.getWorkshops();
     // });
   }
 
+  openCreateDialog(): void {
+    this.dialog.open(WorkshopCreateComponent);
+  }    
 }
