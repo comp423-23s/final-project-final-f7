@@ -13,7 +13,7 @@
     margin-bottom: 8px;
 }
 
-.position {
+.add_button_position {
     display: flex;
     justify-content: space-between;
 }
