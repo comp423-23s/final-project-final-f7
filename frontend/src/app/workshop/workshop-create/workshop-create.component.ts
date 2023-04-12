@@ -3,6 +3,7 @@ import { Workshop, WorkshopService } from '../workshop.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { WorkshopDialogData } from '../workshop.component';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class WorkshopCreateComponent {
     protected workshopService: WorkshopService,
     protected formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
+    protected snackBar: MatSnackBar
   ){
     this.createForm.get('id')?.addValidators(Validators.required);
     this.createForm.get('title')?.addValidators(Validators.required);
@@ -59,11 +61,21 @@ export class WorkshopCreateComponent {
       attendees: []
     }
 
-    this.workshopService.createWorkshop(workshop);
+    this.workshopService.createWorkshop(workshop).subscribe({
+      next: () => this.onSuccess(),
+      error: (err) => this.onError(err)
+    });
     this.dialogRef.close();
   }
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  private onSuccess(){
+    this.snackBar.open("Workshop created!", "", { duration: 2000})
+  }
+
+  private onError(err: any){
   }
 }

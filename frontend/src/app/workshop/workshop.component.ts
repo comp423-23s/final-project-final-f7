@@ -34,15 +34,18 @@ export class WorkshopComponent {
   }
 
   openRegisterDialog(workshop: Workshop): void {
-    this.dialog.open(WorkshopDialogComponent, {
+    const dialogRef = this.dialog.open(WorkshopDialogComponent, {
       data: {workshop: workshop}
     });
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.workshops$ = this.workshopService.getWorkshops();
-    // });
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
   }
 
   openCreateDialog(): void {
-    this.dialog.open(WorkshopCreateComponent);
+    const dialogRef = this.dialog.open(WorkshopCreateComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
   }    
 }

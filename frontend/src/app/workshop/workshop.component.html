@@ -1,8 +1,14 @@
 <!-- HTML page displaying all workshops and relevant information in the form of mat-cards. -->
 
-<button mat-fab color="primary" aria-label="Create new workshop" (click)="openCreateDialog()">
-    <mat-icon>add</mat-icon>
-</button>
+<mat-card-actions fxLayout="row wrap">
+<div class="position">
+    <div>
+        <button mat-fab style="background-color:#4786C6" aria-label="Create new workshop" (click)="openCreateDialog()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
+</mat-card-actions>
 
 <mat-card class="content" *ngFor="let workshop of workshops$ | async">
 
