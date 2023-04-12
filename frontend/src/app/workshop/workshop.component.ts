@@ -1,11 +1,12 @@
 /* Component running behind the scenes of the webpage. */
 
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { Workshop, WorkshopService } from './workshop.service';
 import { MatDialog } from '@angular/material/dialog';
 import { WorkshopDialogComponent } from './workshop-dialog/workshop-dialog.component';
 import { Profile, ProfileService } from '../profile/profile.service';
+import { WorkshopCreateComponent } from './workshop-create/workshop-create.component';
 
 export interface WorkshopDialogData {
   workshop: Workshop
@@ -32,14 +33,19 @@ export class WorkshopComponent {
     this.profile$ = profileService.profile$;
   }
 
-  openDialog(workshop: Workshop): void {
-    this.dialog.open(WorkshopDialogComponent, {
+  openRegisterDialog(workshop: Workshop): void {
+    const dialogRef = this.dialog.open(WorkshopDialogComponent, {
       data: {workshop: workshop}
     });
-
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.workshops$ = this.workshopService.getWorkshops();
-    // });
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
   }
 
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(WorkshopCreateComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
+  }    
 }
