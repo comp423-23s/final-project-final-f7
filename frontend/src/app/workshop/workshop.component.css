@@ -12,3 +12,8 @@
     margin-left: 8px;
     margin-bottom: 8px;
 }
+
+.add_button_position {
+    display: flex;
+    justify-content: space-between;
+}
