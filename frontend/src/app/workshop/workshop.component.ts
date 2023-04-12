@@ -1,8 +1,16 @@
 /* Component running behind the scenes of the webpage. */
 
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscriber } from 'rxjs';
 import { Workshop, WorkshopService } from './workshop.service';
+import { MatDialog } from '@angular/material/dialog';
+import { WorkshopDialogComponent } from './workshop-dialog/workshop-dialog.component';
+import { Profile, ProfileService } from '../profile/profile.service';
+import { WorkshopCreateComponent } from './workshop-create/workshop-create.component';
+
+export interface WorkshopDialogData {
+  workshop: Workshop
+}
 
 @Component({
   selector: 'app-workshop',
@@ -12,6 +20,7 @@ import { Workshop, WorkshopService } from './workshop.service';
 export class WorkshopComponent {
 
   public workshops$: Observable<Workshop[]>  // Holds all workshops obtained from the database.
+  public profile$: Observable<Profile | undefined>
 
   public static Route = {
     path: 'workshops',
@@ -19,7 +28,24 @@ export class WorkshopComponent {
     title: 'Workshops',
   }
 
-  constructor(public workshopService: WorkshopService) {
+  constructor(protected workshopService: WorkshopService, protected profileService: ProfileService, public dialog: MatDialog) {
     this.workshops$ = workshopService.getWorkshops();
+    this.profile$ = profileService.profile$;
   }
+
+  openRegisterDialog(workshop: Workshop): void {
+    const dialogRef = this.dialog.open(WorkshopDialogComponent, {
+      data: {workshop: workshop}
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
+  }
+
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(WorkshopCreateComponent);
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
+  }    
 }

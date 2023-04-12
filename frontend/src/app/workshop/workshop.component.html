@@ -1,5 +1,15 @@
 <!-- HTML page displaying all workshops and relevant information in the form of mat-cards. -->
 
+<mat-card-actions fxLayout="row wrap">
+<div class="add_button_position">
+    <div>
+        <button mat-fab style="background-color:#4786C6" aria-label="Create new workshop" (click)="openCreateDialog()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
+</mat-card-actions>
+
 <mat-card class="content" *ngFor="let workshop of workshops$ | async">
 
     <mat-card-header>
@@ -19,11 +29,9 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <mat-form-field appearance="fill">
-            <mat-label>PID</mat-label>
-            <input matInput placeholder="123456789">
-        </mat-form-field>
-        <button mat-button>REGISTER</button>
+        <button mat-button [disabled]="((profile$ | async) === undefined)" [disabled]="workshop.spots <= 0" (click)="openRegisterDialog(workshop)">Register</button>
+        <mat-error *ngIf="(profile$ | async) === undefined">You must be signed in to register.</mat-error>
+        <mat-error *ngIf="workshop.spots <= 0">All spots have been filled.</mat-error>
     </mat-card-actions>
 
 </mat-card>
