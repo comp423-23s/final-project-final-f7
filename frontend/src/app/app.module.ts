@@ -36,6 +36,7 @@ import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.
 import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkshopCreateComponent } from './workshop/workshop-create/workshop-create.component';
 import { WorkshopDialogComponent } from './workshop/workshop-dialog/workshop-dialog.component';
+import { WorkshopDeleteComponent } from './workshop/workshop-delete/workshop-delete.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { WorkshopDialogComponent } from './workshop/workshop-dialog/workshop-dia
     WorkshopComponent,
     WorkshopCreateComponent,
     WorkshopDialogComponent,
+    WorkshopDeleteComponent,
   ],
   imports: [
     BrowserModule,
