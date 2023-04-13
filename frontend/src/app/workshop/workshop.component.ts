@@ -10,7 +10,6 @@ import { WorkshopCreateComponent } from './workshop-create/workshop-create.compo
 import { WorkshopDeleteComponent } from './workshop-delete/workshop-delete.component';
 import { PermissionService } from '../permission.service';
 
-
 export interface WorkshopDialogData {
   workshop: Workshop
 }
