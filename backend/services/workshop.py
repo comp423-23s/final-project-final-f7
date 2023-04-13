@@ -24,7 +24,7 @@ class WorkshopService:
         self._session = session
 
 
-    def get(self, title: str) -> Workshop | None:
+    def get(self, id: int) -> Workshop | None:
         """Get a Workshop by its title.
 
         Args:
@@ -36,7 +36,7 @@ class WorkshopService:
         This function is not being explicitly used anywhere right now;
         it was written for potential future use.
         """
-        return self._session.execute(select(WorkshopEntity).filter_by(title==title)).scalar_one().to_model()
+        return self._session.execute(select(WorkshopEntity).filter_by(id = id)).scalar_one().to_model()
         # query = select(WorkshopEntity).where(WorkshopEntity.title == title)
         # workshop_entity: WorkshopEntity = self._session.scalar(query)
         # model = workshop_entity.to_model()
@@ -79,3 +79,8 @@ class WorkshopService:
     #     entity.update(workshop)
     #     self._session.commit()
     #     return workshop
+
+    def delete(self, id: int) -> None:
+        self._session.delete(self._session.get(WorkshopEntity, id))
+        self._session.commit()
+        

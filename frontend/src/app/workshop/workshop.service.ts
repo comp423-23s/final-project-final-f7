@@ -45,4 +45,8 @@ export class WorkshopService {
     this.httpClient.put<Workshop>("/api/workshop", [profile, workshop]);
     return profile;
   }
+
+  delete_workshop(workshop: Workshop){
+    return this.httpClient.delete<Workshop>(`/api/workshop/${workshop.id}`);
+  }
 }
