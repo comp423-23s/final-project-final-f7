@@ -1,10 +1,10 @@
 <!-- HTML page displaying all workshops and relevant information in the form of mat-cards. -->
 
-<mat-card-actions fxLayout="row wrap">
+<mat-card-actions fxLayout="row wrap"*ngIf = "adminPermission$ | async">
 <div class="add_button_position">
     <div>
         <button mat-fab style="background-color:#4786C6" aria-label="Create new workshop" (click)="openCreateDialog()">
-            <mat-icon>add</mat-icon>
+            <mat-icon >add</mat-icon>
         </button>
     </div>
 </div>
@@ -32,8 +32,7 @@
         <button mat-button [disabled]="((profile$ | async) === undefined)" [disabled]="workshop.spots <= 0" (click)="openRegisterDialog(workshop)">Register</button>
         <mat-error *ngIf="(profile$ | async) === undefined">You must be signed in to register.</mat-error>
         <mat-error *ngIf="workshop.spots <= 0">All spots have been filled.</mat-error>
-
-        <button mat-button (click) = "openDeleteDialog(workshop)">Delete</button>
+        <button mat-button (click)= "openDeleteDialog(workshop)" *ngIf = "adminPermission$ | async" >Delete</button>
     </mat-card-actions>
 
 </mat-card>
