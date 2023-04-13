@@ -13,12 +13,12 @@ from ..models import Workshop
 
 api = APIRouter(prefix="/api/workshop")
 
-@api.get("/{title}", response_model= Workshop, tags=["Workshop"])
-def get_workshop(title : str, workshop_service: WorkshopService = Depends()):
-    """Get a workshop by its title.
+@api.get("/{id}", response_model= Workshop, tags=["Workshop"])
+def get_workshop(id : int, workshop_service: WorkshopService = Depends()):
+    """Get a workshop by its ID.
     
     Forwards the instruction to the workshop_service."""
-    return workshop_service.get(title)
+    return workshop_service.get(id)
 
 
 @api.get("", response_model=list[Workshop], tags=["Workshop"])
@@ -44,3 +44,7 @@ def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
 #         workshop.attendees.append(user)
 #         workshop.spots -= 1
 #         return workshop_service.update_workshop(workshop)
+
+@api.delete("/{id}", response_model= None, tags = ["Workshop"])
+def delete_workshop(id: int, workshop_service: WorkshopService = Depends()):
+    return workshop_service.delete(id)
