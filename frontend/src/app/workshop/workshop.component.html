@@ -32,7 +32,6 @@
         <button mat-button [disabled]="((profile$ | async) === undefined)" [disabled]="workshop.spots <= 0" (click)="openRegisterDialog(workshop)">Register</button>
         <mat-error *ngIf="(profile$ | async) === undefined">You must be signed in to register.</mat-error>
         <mat-error *ngIf="workshop.spots <= 0">All spots have been filled.</mat-error>
-
         <button mat-button (click) = "openDeleteDialog(workshop)">Delete</button>
     </mat-card-actions>
 
