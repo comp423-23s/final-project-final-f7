@@ -84,3 +84,4 @@ class WorkshopService:
         self._session.delete(self._session.get(WorkshopEntity, id))
         self._session.commit()
         
+        
