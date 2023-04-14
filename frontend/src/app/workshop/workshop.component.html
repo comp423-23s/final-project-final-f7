@@ -34,5 +34,5 @@
         <mat-error *ngIf="workshop.spots <= 0">All spots have been filled.</mat-error>
         <button mat-button (click)= "openDeleteDialog(workshop)" *ngIf = "adminPermission$ | async" >Delete</button>
     </mat-card-actions>
-
+    
 </mat-card>
