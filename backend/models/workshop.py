@@ -16,3 +16,7 @@ class Workshop(BaseModel):
     requirements: str
     spots: int
     attendees: list[User] = []
+
+
+from .user import User
+Workshop.update_forward_refs()
