@@ -3,6 +3,8 @@
 
 from typing import Self
 
+from backend.models.workshop_details import WorkshopDetails
+
 from ..models import Workshop
 from .entity_base import EntityBase
 from ..entities import UserEntity
@@ -27,9 +29,7 @@ class WorkshopEntity(EntityBase):
     time: Mapped[str] = mapped_column(String)
     requirements: Mapped[str] = mapped_column(String)
     spots: Mapped[int] = mapped_column(Integer)
-
-    # user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=True)
-    # attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
+    attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
 
     #the parameter cls is of Type[Self@WorkshopEntity]. So we want to return the mapped all of the fields mapped to the original model
     #this is providing the the table the information that is necessary 
@@ -61,4 +61,18 @@ class WorkshopEntity(EntityBase):
             requirements=self.requirements,
             spots=self.spots,
         )
-
+    
+    def details_model(self) -> WorkshopDetails:
+        return WorkshopDetails(
+            id=self.id,
+            title=self.title,
+            description=self.description,
+            host_first_name=self.host_first_name,
+            host_last_name=self.host_last_name,
+            host_description=self.host_description,
+            location=self.location,
+            time=self.time,
+            requirements=self.requirements,
+            spots=self.spots,
+            attendees = [user.to_model() for user in self.attendees]
+        )
