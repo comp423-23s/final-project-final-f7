@@ -31,7 +31,6 @@ class WorkshopEntity(EntityBase):
     spots: Mapped[int] = mapped_column(Integer)
     attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
 
-    #the parameter cls is of Type[Self@WorkshopEntity]. So we want to return the mapped all of the fields mapped to the original model
     #this is providing the the table the information that is necessary 
     @classmethod
     def from_model(cls, model: Workshop) -> Self:
