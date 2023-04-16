@@ -1,3 +1,5 @@
+<!-- In a dialog box, displays values to fill out in order to create a new workshop. -->
+
 <h1 mat-dialog-title>Create new workshop</h1>
 
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
@@ -60,6 +62,7 @@
     </div>
 
     <div mat-dialog-actions>
-        <button mat-button type="submit" cdkFocusInitial>Create</button>
+        <button mat-button type="submit" [disabled]="createForm.invalid" cdkFocusInitial>Create</button>
         <button mat-button (click)="onNoClick()" type="button">Back</button>
     </div>
+</form>

@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
+/* Component handling functionality of the dialog box that is displayed upon clicking the create button. */
+
+import { Component } from '@angular/core';
 import { Workshop, WorkshopService } from '../workshop.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { WorkshopDialogData } from '../workshop.component';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 @Component({
   selector: 'app-workshop-create',
@@ -13,9 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class WorkshopCreateComponent {
 
-  public workshop: Workshop | undefined
-
-  public createForm = this.formBuilder.group({
+  public createForm = this.formBuilder.group({  // Form group holding the values provided.
     id: "",
     title: "",
     description: "",
@@ -34,7 +32,7 @@ export class WorkshopCreateComponent {
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
     protected snackBar: MatSnackBar
   ){
-    this.createForm.get('id')?.addValidators(Validators.required);
+    this.createForm.get('id')?.addValidators(Validators.required);  // Validate values.
     this.createForm.get('title')?.addValidators(Validators.required);
     this.createForm.get('description')?.addValidators(Validators.required);
     this.createForm.get('host_first_name')?.addValidators(Validators.required);
@@ -72,10 +70,11 @@ export class WorkshopCreateComponent {
     this.dialogRef.close();
   }
 
-  private onSuccess(){
-    this.snackBar.open("Workshop created!", "", { duration: 2000})
+  private onSuccess() {
+    this.snackBar.open("Workshop created!", "", { duration: 2000 })
   }
 
-  private onError(err: any){
+  private onError(err: any) {
+    // TODO: Handle this accordingly in some way.
   }
 }

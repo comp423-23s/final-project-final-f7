@@ -1,22 +1,24 @@
+/* Component that handles functionality of the registration dialog box that appears when clicking the register button. */
+
 import { Component, Inject } from '@angular/core';
 import { Profile, ProfileService } from '../../profile/profile.service';
-import { Workshop, WorkshopService } from '../workshop.service';
+import { WorkshopService } from '../workshop.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { WorkshopDialogData } from '../workshop.component';
 
 @Component({
-  selector: 'app-workshop-dialog',
-  templateUrl: './workshop-dialog.component.html',
-  styleUrls: ['./workshop-dialog.component.css']
+  selector: 'app-workshop-register',
+  templateUrl: './workshop-register.component.html',
+  styleUrls: ['./workshop-register.component.css']
 })
-export class WorkshopDialogComponent {
+export class WorkshopRegisterComponent {
 
-  public profile: Profile | undefined
+  public profile: Profile | undefined  // Holds the profile currently logged in.
 
   constructor(
     protected profileService: ProfileService, 
     protected workshopService: WorkshopService,
-    public dialogRef: MatDialogRef<WorkshopDialogComponent>,
+    public dialogRef: MatDialogRef<WorkshopRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) public workshopDialogData: WorkshopDialogData
   ) {
     profileService.profile$.subscribe({

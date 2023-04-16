@@ -35,7 +35,7 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkshopCreateComponent } from './workshop/workshop-create/workshop-create.component';
-import { WorkshopDialogComponent } from './workshop/workshop-dialog/workshop-dialog.component';
+import { WorkshopRegisterComponent } from './workshop/workshop-register/workshop-register.component';
 import { WorkshopDeleteComponent } from './workshop/workshop-delete/workshop-delete.component';
 
 @NgModule({
@@ -48,7 +48,7 @@ import { WorkshopDeleteComponent } from './workshop/workshop-delete/workshop-del
     ProfileEditorComponent,
     WorkshopComponent,
     WorkshopCreateComponent,
-    WorkshopDialogComponent,
+    WorkshopRegisterComponent,
     WorkshopDeleteComponent,
   ],
   imports: [
