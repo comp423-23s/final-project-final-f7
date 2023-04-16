@@ -32,7 +32,7 @@ export class WorkshopCreateComponent {
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
     protected snackBar: MatSnackBar
   ){
-    this.createForm.get('id')?.addValidators(Validators.required);  // Validate values.
+    this.createForm.get('id')?.addValidators(Validators.required);  // Validate values from the user given to the form.
     this.createForm.get('title')?.addValidators(Validators.required);
     this.createForm.get('description')?.addValidators(Validators.required);
     this.createForm.get('host_first_name')?.addValidators(Validators.required);
