@@ -1,5 +1,5 @@
-from backend.models import workshop
+from backend.models import Workshop
 from . import User
 
-class WorkshopDetails(workshop):
+class WorkshopDetails(Workshop):
     attendees: list[User]

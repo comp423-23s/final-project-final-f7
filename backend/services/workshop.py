@@ -4,6 +4,7 @@
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from backend.entities.user_entity import UserEntity
 
 from backend.models.user import User
 from ..database import db_session
@@ -71,11 +72,26 @@ class WorkshopService:
         return [entity.to_model() for entity in entities]
     
         
-    # def update_workshop(self, workshop: Workshop) -> Workshop:
-    #     entity = self._session.get(WorkshopEntity, workshop.title)
-    #     entity.update(workshop)
-    #     self._session.commit()
-    #     return workshop
+    def register_user(self, user: User, workshop_id: int) -> Workshop:
+        """Return a workshop with a student added to registrations in the database.
+
+        Args:
+            user: The student being registered.
+            workshop: The workshop that the student is being registered to.
+
+        Returns:
+            Workshop: The updated workshop.
+        
+        The underlying function being called when a student
+        clicks the button to register for a workshop."""
+        # workshop = self._session.execute(select(WorkshopEntity).filter_by(id=workshop_id)).scalar_one()
+        workshop = self._session.get(WorkshopEntity, workshop_id)
+        # workshop = self._session.add(UserEntity.from_model(user))
+        # workshop.attendees.append(UserEntity.from_model(user))
+        # workshop.attendees.insert(0, UserEntity.from_model(user))
+        workshop.spots -= 1
+        self._session.commit()
+        return workshop.to_model()
     
 
     def delete(self, id: int) -> None:
