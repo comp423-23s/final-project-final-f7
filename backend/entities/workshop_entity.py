@@ -12,11 +12,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String
 
 
-__authors__ = ["Kris Jordan"]
-__copyright__ = "Copyright 2023"
-__license__ = "MIT"
-
-
 class WorkshopEntity(EntityBase):
     __tablename__ = 'workshop'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -31,7 +26,6 @@ class WorkshopEntity(EntityBase):
     spots: Mapped[int] = mapped_column(Integer)
     attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
 
-    #this is providing the the table the information that is necessary 
     @classmethod
     def from_model(cls, model: Workshop) -> Self:
         return cls(

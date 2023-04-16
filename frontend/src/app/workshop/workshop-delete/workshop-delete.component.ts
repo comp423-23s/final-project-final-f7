@@ -1,6 +1,8 @@
+/* Component that handles functionality of the delete dialog box. */
+
 import { Component, Inject } from '@angular/core';
 import { WorkshopDialogData } from '../workshop.component';
-import { Workshop, WorkshopService } from '../workshop.service';
+import { WorkshopService } from '../workshop.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -20,7 +22,7 @@ export class WorkshopDeleteComponent {
   }
 
   onClick(): void {
-    this.workshopService.delete_workshop(this.workshopDialogData.workshop).subscribe({
+    this.workshopService.deleteWorkshop(this.workshopDialogData.workshop).subscribe({
       next: () => this.onSuccess(),
       error: (err) => this.onError(err)
     });
@@ -31,11 +33,12 @@ export class WorkshopDeleteComponent {
     this.dialogRef.close()
   }
 
-  private onSuccess(){
+  private onSuccess() {
     this.snackBar.open(`${this.workshopDialogData.workshop.title} Deleted!`, "", {duration: 2000})
   }
 
-  private onError(err: any){
+  private onError(err: any) {
+    // TODO: Handle this in some way.
   }
   
 }
