@@ -39,13 +39,14 @@ def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
     return workshop_service.create(workshop)
 
 
-# @api.put("", response_model=Workshop, tags=["Workshop"])
-# def register_user(user: User, user_workshop: tuple[User, Workshop], workshop_service: WorkshopService = Depends()):
-#     user, workshop = user_workshop
-#     if not workshop.attendees.contains(user) and workshop.spots > 0:
-#         workshop.attendees.append(user)
-#         workshop.spots -= 1
-#         return workshop_service.update_workshop(workshop)
+@api.put("/{id}", response_model=Workshop, tags=["Workshop"])
+def register_user(id: int, user: User, workshop_service: WorkshopService = Depends()):
+    """Register a student in a workshop.
+
+    Gets called when student clicks the register button.
+    Forwards the instruction to the workshop_service."""
+    return workshop_service.register_user(user, id)
+    
 
 
 @api.delete("/{id}", response_model=None, tags=["Workshop"])
