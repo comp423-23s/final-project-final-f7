@@ -35,16 +35,8 @@ export class WorkshopService {
     return this.httpClient.post<Workshop>("/api/workshop", newWorkshop);  // Calls underlying method from the workshop API to create a new workshop.
   }
     
-  registerUser(profile: Profile, workshop: Workshop): Profile | null {
-    for (let attendee of workshop.attendees) {
-      if (attendee === profile) {
-        return null;
-      }
-    }
-    workshop.attendees.push(profile);
-    workshop.spots--;
-    this.httpClient.put<Workshop>("/api/workshop", [profile, workshop]);
-    return profile;
+  registerUser(profile: Profile, id: number): Observable<Workshop> {
+    return this.httpClient.put<Workshop>(`/api/workshop/${id}`, profile); // Calls underlying method from the workshop API to register a user.
   }
 
   deleteWorkshop(workshop: Workshop){
