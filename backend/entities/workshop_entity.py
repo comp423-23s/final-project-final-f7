@@ -7,14 +7,10 @@ from backend.models.workshop_details import WorkshopDetails
 
 from ..models import Workshop
 from .entity_base import EntityBase
-from ..entities import UserEntity
+from .user_entity import UserEntity
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String
-
-
-__authors__ = ["Kris Jordan"]
-__copyright__ = "Copyright 2023"
-__license__ = "MIT"
+from .workshop_user_entity import workshop_user_table
 
 
 class WorkshopEntity(EntityBase):
@@ -29,9 +25,8 @@ class WorkshopEntity(EntityBase):
     time: Mapped[str] = mapped_column(String)
     requirements: Mapped[str] = mapped_column(String)
     spots: Mapped[int] = mapped_column(Integer)
-    attendees: Mapped[list['UserEntity']] = relationship(back_populates='workshop')
+    attendees: Mapped[list['UserEntity']] = relationship(secondary=workshop_user_table, back_populates='workshops')
 
-    #this is providing the the table the information that is necessary 
     @classmethod
     def from_model(cls, model: Workshop) -> Self:
         return cls(
@@ -73,5 +68,5 @@ class WorkshopEntity(EntityBase):
             time=self.time,
             requirements=self.requirements,
             spots=self.spots,
-            attendees = [attendee.to_model() for attendee in self.attendees]
+            attendees=[attendee.to_model() for attendee in self.attendees]
         )

@@ -1,11 +1,12 @@
-/* Service for handling workshop functionality on the frontend. */
+/* Service for handling workshop functionality on the frontend. 
+Calls on underlying HTTP methods to handle backend functionality. */
 
 import { Injectable } from '@angular/core';
 import { Profile } from '../profile/profile.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export interface Workshop {
+export interface Workshop {  // Interface representing a workshop object.
   id: number
   title: string
   description: string
@@ -27,26 +28,18 @@ export class WorkshopService {
   constructor(private httpClient: HttpClient) { }
 
   getWorkshops(): Observable<Workshop[]> {
-    return this.httpClient.get<Workshop[]>("/api/workshop");  // Calls underlying method from the workshop API.
+    return this.httpClient.get<Workshop[]>("/api/workshop");  // Calls underlying method from the workshop API to get all workshops.
   }
 
   createWorkshop(newWorkshop: Workshop): Observable<Workshop>{
-    return this.httpClient.post<Workshop>("/api/workshop", newWorkshop);
+    return this.httpClient.post<Workshop>("/api/workshop", newWorkshop);  // Calls underlying method from the workshop API to create a new workshop.
   }
     
-  registerUser(profile: Profile, workshop: Workshop): Profile | null {
-    for (let attendee of workshop.attendees) {
-      if (attendee === profile) {
-        return null;
-      }
-    }
-    workshop.attendees.push(profile);
-    workshop.spots--;
-    this.httpClient.put<Workshop>("/api/workshop", [profile, workshop]);
-    return profile;
+  registerUser(profile: Profile, id: number): Observable<Workshop> {
+    return this.httpClient.put<Workshop>(`/api/workshop/${id}`, profile); // Calls underlying method from the workshop API to register a user.
   }
 
-  delete_workshop(workshop: Workshop){
-    return this.httpClient.delete<Workshop>(`/api/workshop/${workshop.id}`);
+  deleteWorkshop(workshop: Workshop){
+    return this.httpClient.delete<null>(`/api/workshop/${workshop.id}`);  // Calls underlying method from the workshop API to delete a workshop.
   }
 }

@@ -7,6 +7,8 @@ from typing import Self
 from .entity_base import EntityBase
 from .user_role_entity import user_role_table
 from ..models import User
+# from .workshop_entity import WorkshopEntity
+from .workshop_user_entity import workshop_user_table
 
 
 __authors__ = ['Kris Jordan']
@@ -32,6 +34,7 @@ class UserEntity(EntityBase):
 
     roles: Mapped[list['RoleEntity']] = relationship(secondary=user_role_table, back_populates='users')
     permissions: Mapped['PermissionEntity'] = relationship(back_populates='user')
+    workshops: Mapped[list['WorkshopEntity']] = relationship(secondary=workshop_user_table, back_populates='attendees')
 
     @classmethod
     def from_model(cls, model: User) -> Self:

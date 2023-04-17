@@ -4,6 +4,7 @@
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from backend.entities.user_entity import UserEntity
 
 from backend.models.user import User
 from ..database import db_session
@@ -37,10 +38,7 @@ class WorkshopService:
         it was written for potential future use.
         """
         return self._session.execute(select(WorkshopEntity).filter_by(id = id)).scalar_one().to_model()
-        # query = select(WorkshopEntity).where(WorkshopEntity.title == title)
-        # workshop_entity: WorkshopEntity = self._session.scalar(query)
-        # model = workshop_entity.to_model()
-        # return model
+
 
     def create(self, subject: Workshop) -> Workshop:
         """Create a workshop and add it to the database.
@@ -51,14 +49,13 @@ class WorkshopService:
         Returns:
             Workshop: The workshop that was added (in model form).
             
-        This function is not being explicitly used anywhere right now;
-        it was written for potential future use.
-        It was used to add workshops from the /docs page, but now
-        we have workshops added from the script."""
+        The underlying function being called when the administrator
+        clicks the button to create a new workshop."""
         workshop = WorkshopEntity.from_model(subject)
         self._session.add(workshop)
         self._session.commit()
         return workshop.to_model()
+    
 
     def get_all(self) -> list[Workshop]:
         """Return a list of all workshops in the database.
@@ -73,14 +70,41 @@ class WorkshopService:
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
+    
         
-    # def update_workshop(self, workshop: Workshop) -> Workshop:
-    #     entity = self._session.get(WorkshopEntity, workshop.title)
-    #     entity.update(workshop)
-    #     self._session.commit()
-    #     return workshop
+    def register_user(self, user: User, workshop_id: int) -> Workshop:
+        """Return a workshop with a student added to registrations in the database.
+
+        Args:
+            user: The student being registered.
+            workshop: The workshop that the student is being registered to.
+
+        Returns:
+            Workshop: The updated workshop.
+        
+        The underlying function being called when a student
+        clicks the button to register for a workshop."""
+        # workshop = self._session.execute(select(WorkshopEntity).filter_by(id=workshop_id)).scalar_one()
+        workshop = self._session.get(WorkshopEntity, workshop_id)
+        # workshop = self._session.add(UserEntity.from_model(user))
+        # workshop.attendees.append(UserEntity.from_model(user))
+        # workshop.attendees.insert(0, UserEntity.from_model(user))
+        workshop.spots -= 1
+        self._session.commit()
+        return workshop.to_model()
+    
 
     def delete(self, id: int) -> None:
+        """Delete a workshop given its ID.
+        
+        Args:
+            id: The ID of the workshop to delete.
+            
+        Returns:
+            None
+            
+        The underlying function being called by the administrator when the
+        delete button is pressed for a specific workshop."""
         self._session.delete(self._session.get(WorkshopEntity, id))
         self._session.commit()
         
