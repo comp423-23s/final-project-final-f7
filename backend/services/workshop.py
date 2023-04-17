@@ -84,12 +84,14 @@ class WorkshopService:
         
         The underlying function being called when a student
         clicks the button to register for a workshop."""
-        # workshop = self._session.execute(select(WorkshopEntity).filter_by(id=workshop_id)).scalar_one()
         workshop = self._session.get(WorkshopEntity, workshop_id)
-        # workshop = self._session.add(UserEntity.from_model(user))
-        # workshop.attendees.append(UserEntity.from_model(user))
-        # workshop.attendees.insert(0, UserEntity.from_model(user))
-        workshop.spots -= 1
+        # TODO: Make it so you can't register twice            
+        if (self._session.get(UserEntity, user.id) is None):
+            workshop.attendees.append(UserEntity.from_model(user))
+        else:   
+            workshop.attendees.append(self._session.get(UserEntity, user.id))
+        workshop.spots -= 1 
+        self._session.merge(workshop)
         self._session.commit()
         return workshop.to_model()
     
