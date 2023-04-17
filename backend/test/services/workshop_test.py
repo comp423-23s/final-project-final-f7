@@ -3,8 +3,8 @@
 
 import pytest
 from ...models import Workshop, User, Permission
-from ...services import WorkshopService, PermissionService
-from ...entities import WorkshopEntity, PermissionEntity
+from ...services import WorkshopService, PermissionService, UserService
+from ...entities import WorkshopEntity, PermissionEntity, UserEntity
 from sqlalchemy.orm import Session
 
 # Mock Workshops
@@ -13,12 +13,12 @@ game = Workshop(id=2, title="Game Dev", description="Make games", host_first_nam
 csxl = Workshop(id=3, title="CSXL Training", description="Train for CSXL", host_first_name="Kris", host_last_name="Jordan", host_description="Kris Jordan trains TAs", location="Sitterson 156", time="4/12/2023 - 3:00PM", requirements="Laptop", spots="10")
 register = Workshop(id=4, title="Registration Training", description="Train for registration", host_first_name="Ketan", host_last_name="Mayer-Patel", host_description="KMP trains students to register", location="Sitterson 014", time="4/13/2023 - 4:00PM", requirements="Laptop", spots="30")
 
-# Mock Permissions
-student_permission: Permission
+# # Mock Permissions
+# student_permission: Permission
 
 # Mock Users
-ryan = User(id=1, pid=123456789, onyen="ryansabo", first_name="Ryan", last_name="Sabo", email="ryansabo@test.com", pronouns="he/him", permissions=student_permission)
-matthew = User(id=2, pid=987654321, onyen="matthewreddy", first_name="Matthew", last_name="Reddy", email="matthewreddy@test.com", pronouns="he/him", permissions=student_permission)
+ryan = User(id=1, pid=123456789, onyen="ryansabo", first_name="Ryan", last_name="Sabo", email="ryansabo@test.com", pronouns="he/him")
+matthew = User(id=2, pid=987654321, onyen="matthewreddy", first_name="Matthew", last_name="Reddy", email="matthewreddy@test.com", pronouns="he/him")
 
 
 @pytest.fixture(autouse=True)
@@ -72,6 +72,8 @@ def test_delete_workshop(workshop: WorkshopService):
     assert workshop_all[1].description == "Make games"
     assert workshop_all[2].description == "Train for registration"
 
-# Test to register users
+# Test if spots decrease when a user registers
 def test_register_users(workshop: WorkshopService):
-    assert 1 == 1
+    workshop.register_user(ryan, 1)
+    workshop_all = workshop.get_all()
+    assert workshop_all[1].spots == 19 # Note: Workshop id 1 (app) moves from index 0 to 1 when a student registers. This needs to be fixed in the next sprint.
