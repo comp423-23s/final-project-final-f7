@@ -4,7 +4,7 @@ The API is used for all backend functionality so far. It handles creation
 of new workshops, deleting a workshop, and returning a list of all of them."""
 
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from backend.models.user import User
 from backend.services.workshop import WorkshopService
 from ..models import Workshop
@@ -45,9 +45,17 @@ def register_user(id: int, user: User, workshop_service: WorkshopService = Depen
 
     Gets called when student clicks the register button.
     Forwards the instruction to the workshop_service."""
-    return workshop_service.register_user(user, id)
+    try:
+        return workshop_service.register_user(user, id)
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     
 
+@api.get("/{id}", response_model=list[User], tags=["Workshop"])
+def check_registration(id: int, workshop_service: WorkshopService = Depends()):
+    """DO DOC"""
+    return workshop_service.check_registration(id)
+    
 
 @api.delete("/{id}", response_model=None, tags=["Workshop"])
 def delete_workshop(id: int, workshop_service: WorkshopService = Depends()):

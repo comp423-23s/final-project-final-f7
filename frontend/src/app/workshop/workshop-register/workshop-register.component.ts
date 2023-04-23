@@ -15,6 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class WorkshopRegisterComponent {
 
   public profile: Profile | undefined  // Holds the profile currently logged in.
+  public isUserRegistered: boolean
+  public allUsers: Profile[]
 
   constructor(
     protected profileService: ProfileService, 
@@ -23,13 +25,18 @@ export class WorkshopRegisterComponent {
     protected snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public workshopDialogData: WorkshopDialogData
   ) {
+    this.allUsers = []
     profileService.profile$.subscribe({
       next: (profile) => this.profile = profile,
     });
+    this.workshopService.checkRegister(this.workshopDialogData.workshop).subscribe( {
+      next: (profileList) => this.allUsers = profileList,
+    });
+    this.isUserRegistered = this.allUsers.includes(this.profile!)
   }
 
   onSubmit(): void {
-    this.workshopService.registerUser(this.profile!, this.workshopDialogData.workshop.id).subscribe({
+    this.workshopService.registerUser(this.profile!, this.workshopDialogData.workshop).subscribe({
       next: () => this.onSuccess(),
       error: (err) => this.onError(err)
     });
@@ -41,11 +48,11 @@ export class WorkshopRegisterComponent {
   }
 
   private onSuccess() {
-    this.snackBar.open(`You have been registered to ${this.workshopDialogData.workshop.title}!`, "", {duration: 2000})
+    this.snackBar.open(`You have been registered to ${this.workshopDialogData.workshop.title}!`, "", {duration: 2000});
   }
 
   private onError(err: any) {
-    // TODO: Handle this in some way.
+    this.snackBar.open(`You are already registered to ${this.workshopDialogData.workshop.title}!`, "", {duration: 2000});
   }
 
 }

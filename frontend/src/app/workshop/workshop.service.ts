@@ -4,7 +4,7 @@ Calls on underlying HTTP methods to handle backend functionality. */
 import { Injectable } from '@angular/core';
 import { Profile } from '../profile/profile.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, ObservedValueOf } from 'rxjs';
 
 export interface Workshop {  // Interface representing a workshop object.
   id: number
@@ -35,8 +35,12 @@ export class WorkshopService {
     return this.httpClient.post<Workshop>("/api/workshop", newWorkshop);  // Calls underlying method from the workshop API to create a new workshop.
   }
     
-  registerUser(profile: Profile, id: number): Observable<Workshop> {
-    return this.httpClient.put<Workshop>(`/api/workshop/${id}`, profile); // Calls underlying method from the workshop API to register a user.
+  registerUser(profile: Profile, workshop: Workshop): Observable<Workshop> {
+    return this.httpClient.put<Workshop>(`/api/workshop/${workshop.id}`, profile); // Calls underlying method from the workshop API to register a user.
+  }
+
+  checkRegister(workshop: Workshop): Observable<Profile[]> {
+    return this.httpClient.get<Profile[]>(`/api/workshop/${workshop.id}`); // DO DOC
   }
 
   deleteWorkshop(workshop: Workshop){
