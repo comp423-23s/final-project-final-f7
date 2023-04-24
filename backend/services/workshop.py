@@ -99,11 +99,17 @@ class WorkshopService:
     
 
     def check_registration(self, workshop_id: int) -> list[User]:
-        """DO DOC"""
+        """Check if a student is registered for a workshop given the workshop ID.
+        
+        Args:
+            workshop_id: The ID of the workshop being checked.
+            
+        Returns
+            list[User]: The list of all students registered to the workshop.
+            
+        The underlying function being called when a student
+        clicks the button to register for a workshop."""
         entities = self._session.query(UserEntity).join(UserEntity, WorkshopEntity.attendees).filter(WorkshopEntity.id == workshop_id).all()
-        # query = select(UserEntity).filter_by(workshop_id=workshop_id)
-        # entities = self._session.scalars(query).all()
-
         models =  [entity.to_model() for entity in entities]
         print(models)
         return models

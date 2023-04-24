@@ -40,7 +40,7 @@ export class WorkshopService {
   }
 
   checkRegister(workshop: Workshop): Observable<Profile[]> {
-    return this.httpClient.get<Profile[]>(`/api/workshop/test/${workshop.id}`); // DO DOC
+    return this.httpClient.get<Profile[]>(`/api/workshop/test/${workshop.id}`); // Calls underlying method from the workshop API to check to see if a user is registered in a workshop.
   }
 
   deleteWorkshop(workshop: Workshop){

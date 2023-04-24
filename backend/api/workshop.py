@@ -8,7 +8,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from backend.models.user import User
 from backend.services.workshop import WorkshopService
 from ..models import Workshop
-# from .authentication import registered_user
 
 
 api = APIRouter(prefix="/api/workshop")
@@ -54,8 +53,10 @@ def register_user(id: int, user: User, workshop_service: WorkshopService = Depen
 
 @api.get("/test/{id}", response_model=list[User], tags=["Workshop"])
 def check_registration(id: int, workshop_service: WorkshopService = Depends()):
-    """DO DOC"""
-    print("------------------------- test ------------------------------")
+    """Check if a student is registered to a workshop.
+    
+    Gets called whenever a student clicks the register button.
+    Forwards the instruction to the workshop_service."""
     return workshop_service.check_registration(id)
     
 

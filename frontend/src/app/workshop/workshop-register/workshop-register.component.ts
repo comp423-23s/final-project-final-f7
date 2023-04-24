@@ -26,29 +26,16 @@ export class WorkshopRegisterComponent {
     @Inject(MAT_DIALOG_DATA) public workshopDialogData: WorkshopDialogData
   ) {
     this.allUsers = []
-    this.isUserRegistered = false
     profileService.profile$.subscribe({
       next: (profile) => this.profile = profile,
     });
     this.workshopService.checkRegister(this.workshopDialogData.workshop).subscribe( {
       next: (profileList) => {
         this.allUsers = profileList;
-        console.log("profilelist-----------------------")
-        console.log(profileList);
-        console.log(this.profile!.id)
-        console.log("Log this" + this.isUserRegistered)
         this.isUserRegistered = profileList.filter(u => u.id === this.profile!.id).length >= 1 
       }
     });
-    console.log("isuserreg1-------------------------------------------")
-    console.log(this.isUserRegistered)
-    console.log("allusers1-------------------------------------------")
-    console.log(this.allUsers)
     this.isUserRegistered = this.allUsers.includes(this.profile!)
-    console.log("allusers2------------------------------------------")
-    console.log(this.allUsers)
-    console.log("isusereg2-------------------------------------------")
-    console.log(this.isUserRegistered)
   }
 
   onSubmit(): void {
