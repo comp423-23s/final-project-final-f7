@@ -69,11 +69,8 @@ class WorkshopService:
         This function is being used by the frontend to display everything."""
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
-        models =  [entity.to_model() for entity in entities]
-        for model in models: 
-            print(model.attendees)
-        return models
-    
+        return [entity.to_model() for entity in entities]
+
         
     def register_user(self, user: User, workshop_id: int) -> Workshop:
         """Return a workshop with a student added to registrations in the database.
@@ -110,9 +107,7 @@ class WorkshopService:
         The underlying function being called when a student
         clicks the button to register for a workshop."""
         entities = self._session.query(UserEntity).join(UserEntity, WorkshopEntity.attendees).filter(WorkshopEntity.id == workshop_id).all()
-        models =  [entity.to_model() for entity in entities]
-        print(models)
-        return models
+        return [entity.to_model() for entity in entities]
             
     
     def delete(self, id: int) -> None:

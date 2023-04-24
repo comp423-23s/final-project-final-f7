@@ -26,7 +26,6 @@ def get_all(workshop_service: WorkshopService = Depends()):
     """Retrieve all workshops from the database.
     
     Used on the webpage to display all workshops."""
-    print("--------------------- callled --------------------------------------------")
     return workshop_service.get_all()
 
 
