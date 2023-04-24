@@ -54,6 +54,7 @@ class WorkshopEntity(EntityBase):
             time=self.time,
             requirements=self.requirements,
             spots=self.spots,
+            attendees=[attendee.to_model() for attendee in self.attendees]
         )
     
     def details_model(self) -> WorkshopDetails:

@@ -40,7 +40,7 @@ export class WorkshopService {
   }
 
   checkRegister(workshop: Workshop): Observable<Profile[]> {
-    return this.httpClient.get<Profile[]>(`/api/workshop/${workshop.id}`); // DO DOC
+    return this.httpClient.get<Profile[]>(`/api/workshop/test/${workshop.id}`); // DO DOC
   }
 
   deleteWorkshop(workshop: Workshop){

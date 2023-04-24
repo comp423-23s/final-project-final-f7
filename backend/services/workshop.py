@@ -69,7 +69,10 @@ class WorkshopService:
         This function is being used by the frontend to display everything."""
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
-        return [entity.to_model() for entity in entities]
+        models =  [entity.to_model() for entity in entities]
+        for model in models: 
+            print(model.attendees)
+        return models
     
         
     def register_user(self, user: User, workshop_id: int) -> Workshop:
@@ -90,16 +93,20 @@ class WorkshopService:
         else:   
             workshop.attendees.append(self._session.get(UserEntity, user.id))
         workshop.spots -= 1 
-        self._session.merge(workshop)
+        self._session.add(workshop)
         self._session.commit()
         return workshop.to_model()
     
 
     def check_registration(self, workshop_id: int) -> list[User]:
         """DO DOC"""
-        query = select(UserEntity).filter_by(workshop_id=workshop_id)
-        entities = self._session.scalars(query).all()
-        return [entity.to_model() for entity in entities]
+        entities = self._session.query(UserEntity).join(UserEntity, WorkshopEntity.attendees).filter(WorkshopEntity.id == workshop_id).all()
+        # query = select(UserEntity).filter_by(workshop_id=workshop_id)
+        # entities = self._session.scalars(query).all()
+
+        models =  [entity.to_model() for entity in entities]
+        print(models)
+        return models
             
     
     def delete(self, id: int) -> None:

@@ -27,6 +27,7 @@ def get_all(workshop_service: WorkshopService = Depends()):
     """Retrieve all workshops from the database.
     
     Used on the webpage to display all workshops."""
+    print("--------------------- callled --------------------------------------------")
     return workshop_service.get_all()
 
 
@@ -51,9 +52,10 @@ def register_user(id: int, user: User, workshop_service: WorkshopService = Depen
         raise HTTPException(status_code=422, detail=str(e))
     
 
-@api.get("/{id}", response_model=list[User], tags=["Workshop"])
+@api.get("/test/{id}", response_model=list[User], tags=["Workshop"])
 def check_registration(id: int, workshop_service: WorkshopService = Depends()):
     """DO DOC"""
+    print("------------------------- test ------------------------------")
     return workshop_service.check_registration(id)
     
 
