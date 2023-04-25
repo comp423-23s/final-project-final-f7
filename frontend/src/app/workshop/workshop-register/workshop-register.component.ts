@@ -32,7 +32,7 @@ export class WorkshopRegisterComponent {
     this.workshopService.checkRegister(this.workshopDialogData.workshop).subscribe( {
       next: (profileList) => {
         this.allUsers = profileList;
-        this.isUserRegistered = profileList.filter(u => u.id === this.profile!.id).length >= 1 
+        this.isUserRegistered = profileList.filter(profile => profile.id === this.profile!.id).length >= 1 
       }
     });
     this.isUserRegistered = this.allUsers.includes(this.profile!)
