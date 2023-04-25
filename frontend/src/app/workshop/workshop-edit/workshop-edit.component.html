@@ -1,6 +1,6 @@
 <!-- In a dialog box, displays values to fill out in order to create a new workshop. -->
 
-<h1 mat-dialog-title>Edit Workshop{{workshopDialogData.workshop.title}}</h1>
+<h1 mat-dialog-title>Edit Workshop {{workshopDialogData.workshop.title}}</h1>
 
 <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
