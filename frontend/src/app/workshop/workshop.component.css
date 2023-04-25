@@ -17,3 +17,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.edit_button {
+    align-self: right;
+    padding: 15px 32px;
+}
