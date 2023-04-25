@@ -48,6 +48,6 @@ export class WorkshopService {
   }
 
   updateWorkshop(workshop: Workshop){
-    return this.httpClient.put<Workshop>(`/api/workshop/edit/${workshop.id}`,workshop) 
+    return this.httpClient.put<Workshop>(`/api/workshop/edit/${workshop.id}`, workshop) 
   }
 }
