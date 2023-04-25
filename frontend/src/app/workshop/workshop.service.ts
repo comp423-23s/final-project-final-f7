@@ -46,4 +46,8 @@ export class WorkshopService {
   deleteWorkshop(workshop: Workshop){
     return this.httpClient.delete<null>(`/api/workshop/${workshop.id}`);  // Calls underlying method from the workshop API to delete a workshop.
   }
+
+  updateWorkshop(workshop: Workshop){
+    return this.httpClient.put<Workshop>(`/api/workshop/edit/${workshop.id}`,workshop) 
+  }
 }

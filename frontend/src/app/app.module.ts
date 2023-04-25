@@ -37,6 +37,7 @@ import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkshopCreateComponent } from './workshop/workshop-create/workshop-create.component';
 import { WorkshopRegisterComponent } from './workshop/workshop-register/workshop-register.component';
 import { WorkshopDeleteComponent } from './workshop/workshop-delete/workshop-delete.component';
+import { WorkshopEditComponent } from './workshop/workshop-edit/workshop-edit.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { WorkshopDeleteComponent } from './workshop/workshop-delete/workshop-del
     WorkshopCreateComponent,
     WorkshopRegisterComponent,
     WorkshopDeleteComponent,
+    WorkshopEditComponent,
   ],
   imports: [
     BrowserModule,
