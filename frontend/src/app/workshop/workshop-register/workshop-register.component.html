@@ -9,7 +9,8 @@ Simply takes the user currently logged in, and verifies that the user wants to r
 </div>
 
 <div mat-dialog-actions>
-    <button mat-button (click)="onSubmit()" cdkFocusInitial>Register</button>
+    <button mat-button (click)="onSubmit()" [disabled]="this.isUserRegistered" cdkFocusInitial>Register</button>
+    <mat-error *ngIf="this.isUserRegistered">You are already registered for this workshop.</mat-error>
     <button mat-button (click)="onNoClick()">Back</button>
 </div>
     
