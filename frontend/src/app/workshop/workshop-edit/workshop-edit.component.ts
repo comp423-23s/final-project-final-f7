@@ -26,7 +26,7 @@ export class WorkshopEditComponent {
   })
 
   constructor(
-  protected workshopService: WorkshopService,
+    protected workshopService: WorkshopService,
     protected formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<WorkshopEditComponent>,
     protected snackBar: MatSnackBar,
