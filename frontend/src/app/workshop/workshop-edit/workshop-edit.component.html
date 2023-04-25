@@ -1,0 +1,63 @@
+<!-- In a dialog box, displays values to fill out in order to create a new workshop. -->
+
+<h1 mat-dialog-title>Edit Workshop {{workshopDialogData.workshop.title}}</h1>
+
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+        <div fxLayout="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Workshop title</mat-label>
+                <input matInput formControlName="title" name="title" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Workshop description</mat-label>
+                <input matInput formControlName="description" name="description" required>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Host first name</mat-label>
+                <input matInput formControlName="host_first_name" name="host_first_name" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Host last name</mat-label>
+                <input matInput formControlName="host_last_name" name="host_last_name" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Host description</mat-label>
+                <input matInput formControlName="host_description" name="host_description" required>
+            </mat-form-field>
+        </div>
+        
+        <div fxLayout="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Workshop location</mat-label>
+                <input matInput formControlName="location" name="location" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Workshop time</mat-label>
+                <input matInput formControlName="time" name="time" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Workshop requirements</mat-label>
+                <input matInput formControlName="requirements" name="requirements" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Workshop total spots</mat-label>
+                <input matInput formControlName="spots" name="spots" required>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button type="submit" [disabled]="editForm.invalid" cdkFocusInitial>Create</button>
+        <button mat-button (click)="onNoClick()" type="button">Back</button>
+    </div>
+</form>

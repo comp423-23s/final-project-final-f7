@@ -66,3 +66,8 @@ def delete_workshop(id: int, workshop_service: WorkshopService = Depends()):
     Gets called when administrator clicks the delete button for a
     specific workshop. Fowards instruction and ID to workshop_service."""
     return workshop_service.delete(id)
+
+@api.put("/edit/{id}", response_model= Workshop, tags=["Workshop"])
+def update_workshop(workshop: Workshop, workshop_service: WorkshopService = Depends()):
+    return workshop_service.update(workshop)
+         
