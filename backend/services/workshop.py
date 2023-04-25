@@ -70,7 +70,7 @@ class WorkshopService:
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
         return [entity.to_model() for entity in entities]
-    
+
         
     def register_user(self, user: User, workshop_id: int) -> Workshop:
         """Return a workshop with a student added to registrations in the database.
@@ -85,17 +85,31 @@ class WorkshopService:
         The underlying function being called when a student
         clicks the button to register for a workshop."""
         workshop = self._session.get(WorkshopEntity, workshop_id)
-        # TODO: Make it so you can't register twice            
         if (self._session.get(UserEntity, user.id) is None):
             workshop.attendees.append(UserEntity.from_model(user))
         else:   
             workshop.attendees.append(self._session.get(UserEntity, user.id))
         workshop.spots -= 1 
-        self._session.merge(workshop)
+        self._session.add(workshop)
         self._session.commit()
         return workshop.to_model()
     
 
+    def check_registration(self, workshop_id: int) -> list[User]:
+        """Check if a student is registered for a workshop given the workshop ID.
+        
+        Args:
+            workshop_id: The ID of the workshop being checked.
+            
+        Returns
+            list[User]: The list of all students registered to the workshop.
+            
+        The underlying function being called when a student
+        clicks the button to register for a workshop."""
+        entities = self._session.query(UserEntity).join(UserEntity, WorkshopEntity.attendees).filter(WorkshopEntity.id == workshop_id).all()
+        return [entity.to_model() for entity in entities]
+            
+    
     def delete(self, id: int) -> None:
         """Delete a workshop given its ID.
         
