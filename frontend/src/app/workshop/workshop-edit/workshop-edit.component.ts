@@ -33,7 +33,7 @@ export class WorkshopEditComponent {
     @Inject(MAT_DIALOG_DATA) public workshopDialogData: WorkshopDialogData
 
   ){
-    this.editForm.get('title')?.addValidators(Validators.required);
+    this.editForm.get('title')?.addValidators(Validators.required); 
     this.editForm.get('description')?.addValidators(Validators.required);
     this.editForm.get('host_first_name')?.addValidators(Validators.required);
     this.editForm.get('host_last_name')?.addValidators(Validators.required);
@@ -41,7 +41,7 @@ export class WorkshopEditComponent {
     this.editForm.get('location')?.addValidators(Validators.required);
     this.editForm.get('time')?.addValidators(Validators.required);
     this.editForm.get('requirements')?.addValidators(Validators.required);
-    this.editForm.get('spots')?.addValidators(Validators.required);
+    this.editForm.get('spots')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); 
   }
 
   ngOnInit(): void{
