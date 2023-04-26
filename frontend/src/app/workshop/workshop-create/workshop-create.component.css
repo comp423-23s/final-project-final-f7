@@ -1,0 +1,17 @@
+.second-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.third-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.fourth-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
