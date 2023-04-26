@@ -41,7 +41,7 @@ export class WorkshopEditComponent {
     this.editForm.get('location')?.addValidators(Validators.required);
     this.editForm.get('time')?.addValidators(Validators.required);
     this.editForm.get('requirements')?.addValidators(Validators.required);
-    this.editForm.get('spots')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); 
+    this.editForm.get('spots')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); // Validate values from the user given to the form.
   }
 
   ngOnInit(): void{
