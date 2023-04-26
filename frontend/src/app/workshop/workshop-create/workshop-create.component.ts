@@ -26,21 +26,12 @@ export class WorkshopCreateComponent {
     spots: "",
   })
 
-  public workshop_ids: string[]
-
   constructor(
     protected workshopService: WorkshopService,
     protected formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
     protected snackBar: MatSnackBar,
   ){
-    this.workshopService.getWorkshops().subscribe({
-      next: (workshops) => {
-        for (let workshop of workshops){
-          this.workshop_ids.push("" + workshop.id)
-        }
-      }      
-    })
     this.createForm.get('id')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(100000), Validators.max(999999)]); // Validate values from the user given to the form.
     this.createForm.get('title')?.addValidators(Validators.required);
     this.createForm.get('description')?.addValidators(Validators.required);
