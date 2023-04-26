@@ -3,7 +3,7 @@
 import { Component } from '@angular/core';
 import { Workshop, WorkshopService } from '../workshop.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -30,9 +30,9 @@ export class WorkshopCreateComponent {
     protected workshopService: WorkshopService,
     protected formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
-    protected snackBar: MatSnackBar
+    protected snackBar: MatSnackBar,
   ){
-    this.createForm.get('id')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); // Validate values from the user given to the form.
+    this.createForm.get('id')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(100000), Validators.max(999999)]); // Validate values from the user given to the form.
     this.createForm.get('title')?.addValidators(Validators.required);
     this.createForm.get('description')?.addValidators(Validators.required);
     this.createForm.get('host_first_name')?.addValidators(Validators.required);
@@ -43,7 +43,26 @@ export class WorkshopCreateComponent {
     this.createForm.get('requirements')?.addValidators(Validators.required);
     this.createForm.get('spots')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); // Validate values from the user given to the form.
   }
-  
+
+  ngOnInit(): void{
+    let min= 100000
+    let max= 999999
+    let idAdd = Math.floor(Math.random() * (max-min + 1) + min)
+    this.createForm.setValue({
+      id: "" + idAdd,
+      title: "",
+      description: "",
+      host_first_name: "",
+      host_last_name: "",
+      host_description: "",
+      location: "",
+      time: "",
+      requirements: "",
+      spots: ""
+    })
+  }
+
+
   onSubmit(): void {
     let workshop: Workshop = {
       id: parseInt(this.createForm.value.id!),
@@ -78,3 +97,4 @@ export class WorkshopCreateComponent {
     // TODO: Handle this accordingly in some way.
   }
 }
+
