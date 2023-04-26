@@ -124,3 +124,26 @@ class WorkshopService:
         self._session.delete(self._session.get(WorkshopEntity, id))
         self._session.commit()
         
+    def update(self, workshop: Workshop) -> Workshop:
+        """Update a workshop based on its id with the workshop being passed in.
+        
+        Args: 
+            workshop: The new workshop that will replace the old workshop.
+            
+        Returns:
+            Workshop: The updated workshop 
+            
+        """
+        self._session.query(WorkshopEntity).filter(WorkshopEntity.id == workshop.id).update({
+            'title': workshop.title,
+            'description': workshop.description,
+            'host_first_name': workshop.host_first_name,
+            'host_last_name': workshop.host_last_name,
+            'host_description': workshop.host_description,
+            'location': workshop.location,
+            'time': workshop.time,
+            'requirements': workshop.requirements,
+            'spots': workshop.spots
+        })
+        self._session.commit()
+        return workshop
