@@ -32,7 +32,7 @@ export class WorkshopCreateComponent {
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
     protected snackBar: MatSnackBar
   ){
-    this.createForm.get('id')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); 
+    this.createForm.get('id')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); // Validate values from the user given to the form.
     this.createForm.get('title')?.addValidators(Validators.required);
     this.createForm.get('description')?.addValidators(Validators.required);
     this.createForm.get('host_first_name')?.addValidators(Validators.required);
@@ -41,7 +41,7 @@ export class WorkshopCreateComponent {
     this.createForm.get('location')?.addValidators(Validators.required);
     this.createForm.get('time')?.addValidators(Validators.required);
     this.createForm.get('requirements')?.addValidators(Validators.required);
-    this.createForm.get('spots')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); 
+    this.createForm.get('spots')?.addValidators([Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(0)]); // Validate values from the user given to the form.
   }
   
   onSubmit(): void {
