@@ -34,7 +34,6 @@ export class WorkshopCreateComponent {
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
     protected snackBar: MatSnackBar,
   ){
-    this.workshop_ids = []
     this.workshopService.getWorkshops().subscribe({
       next: (workshops) => {
         for (let workshop of workshops){
