@@ -10,6 +10,7 @@ import { Profile, ProfileService } from '../profile/profile.service';
 import { WorkshopCreateComponent } from './workshop-create/workshop-create.component';
 import { WorkshopDeleteComponent } from './workshop-delete/workshop-delete.component';
 import { PermissionService } from '../permission.service';
+import { WorkshopEditComponent } from './workshop-edit/workshop-edit.component';
 
 export interface WorkshopDialogData {  // Data to be passed to the dialog box components. Simply includes the workshop being referred to.
   workshop: Workshop
@@ -56,6 +57,15 @@ export class WorkshopComponent {
   
   openDeleteDialog(workshop: Workshop): void{
     const dialogRef = this.dialog.open(WorkshopDeleteComponent, {
+      data: {workshop: workshop}
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.workshops$ = this.workshopService.getWorkshops();
+    });
+  }
+
+  openEditDialog(workshop: Workshop): void{
+    const dialogRef = this.dialog.open(WorkshopEditComponent, {
       data: {workshop: workshop}
     });
     dialogRef.afterClosed().subscribe(() => {
