@@ -33,9 +33,9 @@ export class WorkshopCreateComponent {
     public dialogRef: MatDialogRef<WorkshopCreateComponent>,
     protected snackBar: MatSnackBar,
   ){
-    let min= 100000
-    let max= 999999
-    this.workshopId = Math.floor(Math.random() * (max-min + 1) + min)
+    let min = 100000;
+    let max = 999999;
+    this.workshopId = Math.floor(Math.random() * (max-min + 1) + min);
     this.createForm.get('title')?.addValidators(Validators.required);
     this.createForm.get('description')?.addValidators(Validators.required);
     this.createForm.get('host_first_name')?.addValidators(Validators.required);
