@@ -1,3 +1,5 @@
+/* Component that handles the functionality of the edit button. */
+
 import { Component, Inject } from '@angular/core';
 import { Workshop, WorkshopService } from '../workshop.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -31,7 +33,6 @@ export class WorkshopEditComponent {
     public dialogRef: MatDialogRef<WorkshopEditComponent>,
     protected snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public workshopDialogData: WorkshopDialogData
-
   ){
     this.editForm.get('title')?.addValidators(Validators.required); 
     this.editForm.get('description')?.addValidators(Validators.required);
@@ -76,7 +77,6 @@ export class WorkshopEditComponent {
     }
     this.workshopService.updateWorkshop(newWorkshop).subscribe({
       next: (newWorkshop) => this.onSuccess(newWorkshop),
-      error: (err) => this.onError(err)
     });
     this.dialogRef.close();
   }
@@ -85,9 +85,6 @@ export class WorkshopEditComponent {
     this.snackBar.open(`${workshop.title} Updated!`,"", {duration: 2000})
   }
 
-  private onError(error: any){
-    //todo
-  }
   onNoClick(): void{
     this.dialogRef.close();
   }

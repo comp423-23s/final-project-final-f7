@@ -1,7 +1,8 @@
 """Workshop API
 
 The API is used for all backend functionality so far. It handles creation
-of new workshops, deleting a workshop, and returning a list of all of them."""
+of new workshops, deleting and editing a workshop, registering a user
+to a workshop, and returning a list of all of them."""
 
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -31,7 +32,7 @@ def get_all(workshop_service: WorkshopService = Depends()):
 
 @api.post("", response_model=Workshop, tags=["Workshop"])
 def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
-    """Create a new workshop.
+    """Create a new workshop from the given workshop.
     
     Gets called when administrator clicks the create workshop button.
     Forwards the instruction to the workshop_service."""
@@ -40,7 +41,7 @@ def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
 
 @api.put("/{id}", response_model=Workshop, tags=["Workshop"])
 def register_user(id: int, user: User, workshop_service: WorkshopService = Depends()):
-    """Register a student in a workshop.
+    """Register a student in a workshop given the workshop ID.
 
     Gets called when student clicks the register button.
     Forwards the instruction to the workshop_service."""
@@ -52,7 +53,7 @@ def register_user(id: int, user: User, workshop_service: WorkshopService = Depen
 
 @api.get("/test/{id}", response_model=list[User], tags=["Workshop"])
 def check_registration(id: int, workshop_service: WorkshopService = Depends()):
-    """Check if a student is registered to a workshop.
+    """Check if a student is registered to a workshop given the workshop ID.
     
     Gets called whenever a student clicks the register button.
     Forwards the instruction to the workshop_service."""
@@ -63,11 +64,16 @@ def check_registration(id: int, workshop_service: WorkshopService = Depends()):
 def delete_workshop(id: int, workshop_service: WorkshopService = Depends()):
     """Delete a workshop by its ID.
     
-    Gets called when administrator clicks the delete button for a
+    Gets called when an administrator clicks the delete button for a
     specific workshop. Fowards instruction and ID to workshop_service."""
     return workshop_service.delete(id)
 
+
 @api.put("/edit/{id}", response_model= Workshop, tags=["Workshop"])
 def update_workshop(workshop: Workshop, workshop_service: WorkshopService = Depends()):
+    """Update a workshop given the workshop.
+    
+    Gets called when an administrator clicks the edit button for a
+    specific workshop. Forwards instruction and workshop to workshop_service."""
     return workshop_service.update(workshop)
          

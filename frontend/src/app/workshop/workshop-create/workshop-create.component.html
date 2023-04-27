@@ -4,12 +4,13 @@
 
 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
-        <div fxLayout="row">
-            <mat-form-field appearance="fill">
-                <mat-label>Workshop ID</mat-label>
-                <input matInput formControlName="id" name="id" required>
-                <mat-error *ngIf="createForm.get('id')?.invalid">ID is not a valid number</mat-error>
-            </mat-form-field>
+        <div>
+            <p>
+                ID: {{ workshopId }}
+            </p>
+            <p>
+                This will be the unique identifier for your workshop.
+            </p>
         </div>
 
         <div class="second-row" fxLayout="row">
