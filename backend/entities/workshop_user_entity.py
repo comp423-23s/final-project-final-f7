@@ -1,3 +1,6 @@
+"""Creates a table that holds the ID for the workshop and the 
+ID of the user registered to it."""
+
 from sqlalchemy import Table, Column, ForeignKey
 from .entity_base import EntityBase
 

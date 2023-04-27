@@ -8,10 +8,10 @@ from ...entities import WorkshopEntity, PermissionEntity, UserEntity
 from sqlalchemy.orm import Session
 
 # Mock Workshops
-app = Workshop(id=1, title="App Lab", description="Make apps", host_first_name="Ryan", host_last_name="Sabo", host_description="Ryan Sabo makes apps", location="Murphey 116", time="4/22/2023 - 9:00AM", requirements="Laptop", spots="20")
-game = Workshop(id=2, title="Game Dev", description="Make games", host_first_name="Matthew", host_last_name="Reddy", host_description="Matthew Reddy makes games", location="Phillips 215", time="4/3/2023 - 11:00AM", requirements="Laptop", spots="25")
-csxl = Workshop(id=3, title="CSXL Training", description="Train for CSXL", host_first_name="Kris", host_last_name="Jordan", host_description="Kris Jordan trains TAs", location="Sitterson 156", time="4/12/2023 - 3:00PM", requirements="Laptop", spots="10")
-register = Workshop(id=4, title="Registration Training", description="Train for registration", host_first_name="Ketan", host_last_name="Mayer-Patel", host_description="KMP trains students to register", location="Sitterson 014", time="4/13/2023 - 4:00PM", requirements="Laptop", spots="30")
+app = Workshop(id=100001, title="App Lab", description="Make apps", host_first_name="Ryan", host_last_name="Sabo", host_description="Ryan Sabo makes apps", location="Murphey 116", time="4/22/2023 - 9:00AM", requirements="Laptop", spots="20")
+game = Workshop(id=200000, title="Game Dev", description="Make games", host_first_name="Matthew", host_last_name="Reddy", host_description="Matthew Reddy makes games", location="Phillips 215", time="4/3/2023 - 11:00AM", requirements="Laptop", spots="25")
+csxl = Workshop(id=300000, title="CSXL Training", description="Train for CSXL", host_first_name="Kris", host_last_name="Jordan", host_description="Kris Jordan trains TAs", location="Sitterson 156", time="4/12/2023 - 3:00PM", requirements="Laptop", spots="10")
+register = Workshop(id=400000, title="Registration Training", description="Train for registration", host_first_name="Ketan", host_last_name="Mayer-Patel", host_description="KMP trains students to register", location="Sitterson 014", time="4/13/2023 - 4:00PM", requirements="Laptop", spots="30")
 
 # # Mock Permissions
 # student_permission: Permission
@@ -74,6 +74,6 @@ def test_delete_workshop(workshop: WorkshopService):
 
 # Test if spots decrease when a user registers
 def test_register_users(workshop: WorkshopService):
-    workshop.register_user(ryan, 1)
+    workshop.register_user(ryan, 100001)
     workshop_all = workshop.get_all()
-    assert workshop_all[1].spots == 19 # Note: Workshop id 1 (app) moves from index 0 to 1 when a student registers. This needs to be fixed in the next sprint.
+    assert workshop_all[1].spots == 19 # Note: Workshop id 1 (app) moves from index 0 to 1 when a student registers.
