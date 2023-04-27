@@ -26,35 +26,34 @@ class WorkshopService:
 
 
     def get(self, id: int) -> Workshop | None:
-        """Get a Workshop by its title.
+        """Get a Workshop by its ID.
 
         Args:
-            title: The title of the workshop.
+            id: The id of the workshop.
 
         Returns:
             Workshop | None: The workshop or None if not found.
 
         This function is not being explicitly used anywhere right now;
-        it was written for potential future use.
-        """
+        it was written for potential future use."""
         return self._session.execute(select(WorkshopEntity).filter_by(id = id)).scalar_one().to_model()
 
 
-    def create(self, subject: Workshop) -> Workshop:
+    def create(self, workshop: Workshop) -> Workshop:
         """Create a workshop and add it to the database.
         
         Args:
-            subject: The workshop to add.
+            workshop: The workshop to add.
             
         Returns:
             Workshop: The workshop that was added (in model form).
             
         The underlying function being called when the administrator
         clicks the button to create a new workshop."""
-        workshop = WorkshopEntity.from_model(subject)
-        self._session.add(workshop)
+        workshop_entity = WorkshopEntity.from_model(workshop)
+        self._session.add(workshop_entity)
         self._session.commit()
-        return workshop.to_model()
+        return workshop_entity.to_model()
     
 
     def get_all(self) -> list[Workshop]:
@@ -77,7 +76,7 @@ class WorkshopService:
 
         Args:
             user: The student being registered.
-            workshop: The workshop that the student is being registered to.
+            workshop_id: The ID of the workshop that the student is being registered to.
 
         Returns:
             Workshop: The updated workshop.
@@ -125,7 +124,7 @@ class WorkshopService:
         self._session.commit()
         
     def update(self, workshop: Workshop) -> Workshop:
-        """Update a workshop based on its id with the workshop being passed in.
+        """Update a workshop based on its ID with the workshop being passed in.
         
         Args: 
             workshop: The new workshop that will replace the old workshop.
@@ -133,7 +132,8 @@ class WorkshopService:
         Returns:
             Workshop: The updated workshop 
             
-        """
+        The underlying function being called by the administrator when the 
+        edit button is pressed for a specific workshop."""
         self._session.query(WorkshopEntity).filter(WorkshopEntity.id == workshop.id).update({
             'title': workshop.title,
             'description': workshop.description,

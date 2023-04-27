@@ -3,7 +3,7 @@ Simply takes the user currently logged in, and verifies that the user wants to r
 
 <h1 mat-dialog-title>Register for {{ workshopDialogData.workshop.title }}</h1>
 
-<div mat-dialog-content>
+<div mat-dialog-content *ngIf="!this.isUserRegistered">
     <p>We are so glad you are interested in participating in {{ workshopDialogData.workshop.title }}!</p>
     <p>You will be registered as {{ profile!.first_name }} {{ profile!.last_name }}.</p>
 </div>

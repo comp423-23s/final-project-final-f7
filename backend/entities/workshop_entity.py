@@ -2,9 +2,7 @@
 
 
 from typing import Self
-
 from backend.models.workshop_details import WorkshopDetails
-
 from ..models import Workshop
 from .entity_base import EntityBase
 from .user_entity import UserEntity

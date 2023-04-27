@@ -24,7 +24,6 @@ export class WorkshopDeleteComponent {
   onClick(): void {
     this.workshopService.deleteWorkshop(this.workshopDialogData.workshop).subscribe({
       next: () => this.onSuccess(),
-      error: (err) => this.onError(err)
     });
     this.dialogRef.close()
   }
@@ -35,12 +34,5 @@ export class WorkshopDeleteComponent {
 
   private onSuccess() {
     this.snackBar.open(`${this.workshopDialogData.workshop.title} Deleted!`, "", {duration: 2000})
-  }
-
-  private onError(err: any) {
-    // TODO: Handle this in some way.
-  }
-  
+  }  
 }
-
-

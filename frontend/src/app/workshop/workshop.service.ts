@@ -4,7 +4,7 @@ Calls on underlying HTTP methods to handle backend functionality. */
 import { Injectable } from '@angular/core';
 import { Profile } from '../profile/profile.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, ObservedValueOf } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface Workshop {  // Interface representing a workshop object.
   id: number
@@ -36,11 +36,11 @@ export class WorkshopService {
   }
     
   registerUser(profile: Profile, workshop: Workshop): Observable<Workshop> {
-    return this.httpClient.put<Workshop>(`/api/workshop/${workshop.id}`, profile); // Calls underlying method from the workshop API to register a user.
+    return this.httpClient.put<Workshop>(`/api/workshop/${workshop.id}`, profile);  // Calls underlying method from the workshop API to register a user.
   }
 
   checkRegister(workshop: Workshop): Observable<Profile[]> {
-    return this.httpClient.get<Profile[]>(`/api/workshop/test/${workshop.id}`); // Calls underlying method from the workshop API to check to see if a user is registered in a workshop.
+    return this.httpClient.get<Profile[]>(`/api/workshop/test/${workshop.id}`);  // Calls underlying method from the workshop API to check to see if a user is registered in a workshop.
   }
 
   deleteWorkshop(workshop: Workshop){
@@ -48,6 +48,6 @@ export class WorkshopService {
   }
 
   updateWorkshop(workshop: Workshop){
-    return this.httpClient.put<Workshop>(`/api/workshop/edit/${workshop.id}`, workshop) 
+    return this.httpClient.put<Workshop>(`/api/workshop/edit/${workshop.id}`, workshop)  // Calls underlying method from the workshop API to update a workshop.
   }
 }
