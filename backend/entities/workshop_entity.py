@@ -28,14 +28,13 @@ class WorkshopEntity(EntityBase):
 
     @classmethod
     def from_model(cls, model: Workshop) -> Self:
-        """ Translate a given workshop model to an entity
+        """Translate a given workshop model to an entity.
         
         Args:
-            model: The workshop model that will be translated
-        
+            model: The workshop model that will be translated.
+            
         Returns:
-            WorkshopEntity: The model in entity form 
-        """
+            WorkshopEntity: The model in entity form."""
         return cls(
             id=model.id,
             title=model.title,
@@ -50,14 +49,13 @@ class WorkshopEntity(EntityBase):
         )
         
     def to_model(self) -> Workshop:
-        """ Translate an entity to a model
+        """Translate an entity to a model.
         
         Args:
             None
         
         Returns:
-            Workshop: The entity in model form 
-        """
+            Workshop: The entity in model form."""
         return Workshop(
             id=self.id,
             title=self.title,
@@ -73,14 +71,13 @@ class WorkshopEntity(EntityBase):
         )
     
     def details_model(self) -> WorkshopDetails:
-        """ Translate an entity to a details model
+        """Translate an entity to a details model.
         
         Args:
             None
         
         Returns:
-            WorkshopDetails: The entity in model details form 
-        """
+            WorkshopDetails: The entity in model details form."""
         return WorkshopDetails(
             id=self.id,
             title=self.title,
