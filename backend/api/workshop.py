@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from backend.models.user import User
 from backend.services.workshop import WorkshopService
 from ..models import Workshop
+from .authentication import registered_user
 
 
 api = APIRouter(prefix="/api/workshop")
@@ -31,12 +32,12 @@ def get_all(workshop_service: WorkshopService = Depends()):
 
 
 @api.post("", response_model=Workshop, tags=["Workshop"])
-def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
+def post(workshop: Workshop, subject: User = Depends(registered_user), workshop_service: WorkshopService = Depends()):
     """Create a new workshop from the given workshop.
     
     Gets called when administrator clicks the create workshop button.
     Forwards the instruction to the workshop_service."""
-    return workshop_service.create(workshop)
+    return workshop_service.create(subject, workshop)
 
 
 @api.put("/{id}", response_model=Workshop, tags=["Workshop"])
