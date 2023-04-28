@@ -70,9 +70,8 @@ class WorkshopService:
             None
             
         Returns:
-            list[Workshop]: The list of all workshops currently in the database.
-
-                        
+            list[Workshop]: The list of all workshops currently in the database.              
+        
         This function is being used by the frontend to display everything."""
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
@@ -89,7 +88,6 @@ class WorkshopService:
         Returns:
             Workshop: The updated workshop.
 
-        
         The underlying function being called when a student
         clicks the button to register for a workshop."""
         workshop = self._session.get(WorkshopEntity, workshop_id)
