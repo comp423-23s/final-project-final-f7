@@ -132,7 +132,7 @@ class WorkshopService:
             
         The underlying function being called by the administrator when the
         delete button is pressed for a specific workshop."""
-        self._permission.enforce(subject, 'admin.*', 'workshop')
+        self._permission.enforce(subject, 'admin.*', f'workshop/{id}')
         self._session.delete(self._session.get(WorkshopEntity, id))
         self._session.commit()
         
@@ -150,7 +150,7 @@ class WorkshopService:
             
         The underlying function being called by the administrator when the 
         edit button is pressed for a specific workshop."""
-        self._permission.enforce(subject, 'admin.*', 'workshop')
+        self._permission.enforce(subject, 'admin.*', f'workshop/edit/{workshop.id}')
         self._session.query(WorkshopEntity).filter(WorkshopEntity.id == workshop.id).update({
             'title': workshop.title,
             'description': workshop.description,
