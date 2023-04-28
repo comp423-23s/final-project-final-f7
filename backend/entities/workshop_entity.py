@@ -12,6 +12,7 @@ from .workshop_user_entity import workshop_user_table
 
 
 class WorkshopEntity(EntityBase):
+    """Entity representing a workshop that can be understood by the database"""
     __tablename__ = 'workshop'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String)
@@ -27,6 +28,13 @@ class WorkshopEntity(EntityBase):
 
     @classmethod
     def from_model(cls, model: Workshop) -> Self:
+        """Translate a given workshop model to an entity.
+        
+        Args:
+            model: The workshop model that will be translated.
+            
+        Returns:
+            WorkshopEntity: The model in entity form."""
         return cls(
             id=model.id,
             title=model.title,
@@ -41,6 +49,13 @@ class WorkshopEntity(EntityBase):
         )
         
     def to_model(self) -> Workshop:
+        """Translate an entity to a model.
+        
+        Args:
+            None
+        
+        Returns:
+            Workshop: The entity in model form."""
         return Workshop(
             id=self.id,
             title=self.title,
@@ -56,6 +71,13 @@ class WorkshopEntity(EntityBase):
         )
     
     def details_model(self) -> WorkshopDetails:
+        """Translate an entity to a details model.
+        
+        Args:
+            None
+        
+        Returns:
+            WorkshopDetails: The entity in model details form."""
         return WorkshopDetails(
             id=self.id,
             title=self.title,

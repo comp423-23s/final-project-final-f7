@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from backend.models.user import User
 from backend.services.workshop import WorkshopService
 from ..models import Workshop
+from .authentication import registered_user
 
 
 api = APIRouter(prefix="/api/workshop")
@@ -31,12 +32,12 @@ def get_all(workshop_service: WorkshopService = Depends()):
 
 
 @api.post("", response_model=Workshop, tags=["Workshop"])
-def post(workshop: Workshop, workshop_service: WorkshopService = Depends()):
+def post(workshop: Workshop, subject: User = Depends(registered_user), workshop_service: WorkshopService = Depends()):
     """Create a new workshop from the given workshop.
     
     Gets called when administrator clicks the create workshop button.
     Forwards the instruction to the workshop_service."""
-    return workshop_service.create(workshop)
+    return workshop_service.create(subject, workshop)
 
 
 @api.put("/{id}", response_model=Workshop, tags=["Workshop"])
@@ -61,19 +62,19 @@ def check_registration(id: int, workshop_service: WorkshopService = Depends()):
     
 
 @api.delete("/{id}", response_model=None, tags=["Workshop"])
-def delete_workshop(id: int, workshop_service: WorkshopService = Depends()):
+def delete_workshop(id: int, subject: User = Depends(registered_user), workshop_service: WorkshopService = Depends()):
     """Delete a workshop by its ID.
     
     Gets called when an administrator clicks the delete button for a
     specific workshop. Fowards instruction and ID to workshop_service."""
-    return workshop_service.delete(id)
+    return workshop_service.delete(subject, id)
 
 
 @api.put("/edit/{id}", response_model= Workshop, tags=["Workshop"])
-def update_workshop(workshop: Workshop, workshop_service: WorkshopService = Depends()):
+def update_workshop(workshop: Workshop, subject: User = Depends(registered_user), workshop_service: WorkshopService = Depends()):
     """Update a workshop given the workshop.
     
     Gets called when an administrator clicks the edit button for a
     specific workshop. Forwards instruction and workshop to workshop_service."""
-    return workshop_service.update(workshop)
+    return workshop_service.update(subject, workshop)
          
