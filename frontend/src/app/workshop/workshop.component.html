@@ -2,13 +2,13 @@
 Displays buttons for creation of workshops, as well as registering for and deleting a specific workshop. -->
 
 <mat-card-actions fxLayout="row wrap" *ngIf="adminPermission$ | async">
-<div class="add_button_position">
-    <div>
-        <button mat-fab style="background-color:#4786C6" aria-label="Create new workshop" (click)="openCreateDialog()">
-            <mat-icon >add</mat-icon>
-        </button>
+    <div class="add_button_position">
+        <div>
+            <button mat-fab style="background-color:#4786C6" aria-label="Create new workshop" (click)="openCreateDialog()">
+                <mat-icon >add</mat-icon>
+            </button>
+        </div>
     </div>
-</div>
 </mat-card-actions>
 
 <mat-card class="content" *ngFor="let workshop of workshops$ | async">

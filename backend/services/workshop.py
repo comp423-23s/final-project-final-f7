@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from backend.entities.user_entity import UserEntity
 
 from backend.models.user import User
+from backend.services.permission import PermissionService
 from ..database import db_session
 from ..models import Workshop
 from ..entities import WorkshopEntity
@@ -19,10 +20,12 @@ __license__ = 'MIT'
 class WorkshopService:
 
     _session: Session
+    _permission: PermissionService
 
-    def __init__(self, session: Session = Depends(db_session)):
+    def __init__(self, session: Session = Depends(db_session), permission: PermissionService = Depends()):
         """Initialize the Workshop Service."""
         self._session = session
+        self._permission = permission
 
 
     def get(self, id: int) -> Workshop | None:
@@ -39,17 +42,21 @@ class WorkshopService:
         return self._session.execute(select(WorkshopEntity).filter_by(id = id)).scalar_one().to_model()
 
 
-    def create(self, workshop: Workshop) -> Workshop:
-        """Create a workshop and add it to the database.
+    def create(self, subject: User, workshop: Workshop) -> Workshop:
+        """Create a workshop and add it to the database. 
         
         Args:
             workshop: The workshop to add.
             
         Returns:
             Workshop: The workshop that was added (in model form).
+        
+        Raises: 
+            UserPermissionError: If the subject does not have the admin permission.
             
         The underlying function being called when the administrator
         clicks the button to create a new workshop."""
+        self._permission.enforce(subject, 'admin.*', 'workshop')
         workshop_entity = WorkshopEntity.from_model(workshop)
         self._session.add(workshop_entity)
         self._session.commit()
@@ -63,8 +70,8 @@ class WorkshopService:
             None
             
         Returns:
-            list[Workshop]: The list of all workshops currently in the database.
-            
+            list[Workshop]: The list of all workshops currently in the database.              
+        
         This function is being used by the frontend to display everything."""
         query = select(WorkshopEntity)
         entities = self._session.scalars(query).all()
@@ -80,7 +87,7 @@ class WorkshopService:
 
         Returns:
             Workshop: The updated workshop.
-        
+
         The underlying function being called when a student
         clicks the button to register for a workshop."""
         workshop = self._session.get(WorkshopEntity, workshop_id)
@@ -109,7 +116,7 @@ class WorkshopService:
         return [entity.to_model() for entity in entities]
             
     
-    def delete(self, id: int) -> None:
+    def delete(self, subject: User, id: int) -> None:
         """Delete a workshop given its ID.
         
         Args:
@@ -117,23 +124,31 @@ class WorkshopService:
             
         Returns:
             None
+
+        Raises:
+            UserPermissionError: If the subject does not have the admin permission.
             
         The underlying function being called by the administrator when the
         delete button is pressed for a specific workshop."""
+        self._permission.enforce(subject, 'admin.*', f'workshop/{id}')
         self._session.delete(self._session.get(WorkshopEntity, id))
         self._session.commit()
         
-    def update(self, workshop: Workshop) -> Workshop:
+    def update(self, subject: User, workshop: Workshop) -> Workshop:
         """Update a workshop based on its ID with the workshop being passed in.
         
         Args: 
             workshop: The new workshop that will replace the old workshop.
             
         Returns:
-            Workshop: The updated workshop 
+            Workshop: The updated workshop
+
+        Raises:
+            UserPermissionError: If the subject does not have the admin permission.  
             
         The underlying function being called by the administrator when the 
         edit button is pressed for a specific workshop."""
+        self._permission.enforce(subject, 'admin.*', f'workshop/edit/{workshop.id}')
         self._session.query(WorkshopEntity).filter(WorkshopEntity.id == workshop.id).update({
             'title': workshop.title,
             'description': workshop.description,
