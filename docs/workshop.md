@@ -88,5 +88,3 @@ If the user is successfully registered, the workshop service in the backend also
 Our goals from the last sprint were to implement the design of the webpage and add modification functionality for each workshop. Each of these goals has been completed to provide a complete, fully functional product that can be used by students and faculty of the UNC CSXL to represent workshops.
 
 Our team has been thrilled at the opportunity to challenge ourselves and implement extensive front-to-back features that can be used by the UNC CS community for the benefit of everyone. We hope that this documentation fosters a great understanding of how each feature works in detail.
-
-- Matthew
